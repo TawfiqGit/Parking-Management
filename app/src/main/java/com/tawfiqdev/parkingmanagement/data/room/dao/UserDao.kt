@@ -1,6 +1,7 @@
 package com.tawfiqdev.parkingmanagement.data.room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -16,7 +17,7 @@ interface UserDao {
     @Update
     suspend fun update(userEntity: UserEntity)
 
-    @Query("DELETE FROM user")
+    @Delete
     suspend fun delete(userEntity: UserEntity)
 
     @Query("SELECT * FROM user WHERE id ")
