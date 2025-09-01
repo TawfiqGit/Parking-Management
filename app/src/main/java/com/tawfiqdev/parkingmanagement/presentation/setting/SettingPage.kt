@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.ui.page
+package com.tawfiqdev.parkingmanagement.presentation.setting
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ReservationPage(modifier: Modifier = Modifier) {
+fun SettingPage(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -22,7 +22,7 @@ fun ReservationPage(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Text(
-            text = "Reservation",
+            text = "Setting",
             fontSize = 40.sp,
             fontWeight = FontWeight.SemiBold,
             color = Color.Black

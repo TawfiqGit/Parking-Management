@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.application
+package com.tawfiqdev.parkingmanagement
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

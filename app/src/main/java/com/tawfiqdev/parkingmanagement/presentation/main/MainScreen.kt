@@ -1,6 +1,5 @@
-package com.tawfiqdev.parkingmanagement.ui
+package com.tawfiqdev.parkingmanagement.presentation.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -20,12 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.tawfiqdev.parkingmanagement.ui.page.HistoryPage
-import com.tawfiqdev.parkingmanagement.ui.page.HomePage
-import com.tawfiqdev.parkingmanagement.ui.page.ReservationPage
-import com.tawfiqdev.parkingmanagement.ui.page.SettingPage
+import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeUiState
+import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
+import com.tawfiqdev.parkingmanagement.domain.model.Pet
+import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
+import com.tawfiqdev.parkingmanagement.presentation.reservation.ReservationPage
+import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
 
 @Composable
 fun MainScreen (modifier: Modifier = Modifier){
@@ -76,7 +76,12 @@ fun MainScreen (modifier: Modifier = Modifier){
 @Composable
 fun ContentScreen(modifier: Modifier = Modifier, selectedIndex : Int){
     when (selectedIndex){
-        0 -> HomePage()
+        0 -> HomeScreen(HomeViewModel(), object : HomeUiState{
+            override val pets: List<Pet>
+                get() = HomeViewModel().getFakePets()
+            override val error: Boolean
+                get() = true
+        })
         1 -> ReservationPage()
         2 -> HistoryPage()
         3 -> SettingPage()
