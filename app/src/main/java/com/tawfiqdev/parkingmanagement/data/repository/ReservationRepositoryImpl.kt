@@ -1,6 +1,6 @@
 package com.tawfiqdev.parkingmanagement.data.repository
 
-import com.tawfiqdev.parkingmanagement.data.room.ParkingMgmtDatabase
+import com.tawfiqdev.parkingmanagement.data.room.db.ParkingMgmtDatabase
 import com.tawfiqdev.parkingmanagement.data.room.entity.ReservationEntity
 import com.tawfiqdev.parkingmanagement.data.room.entity.StatusRez
 import com.tawfiqdev.parkingmanagement.data.room.entity.VehicleEntity
