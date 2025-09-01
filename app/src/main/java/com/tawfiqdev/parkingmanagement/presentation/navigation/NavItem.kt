@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.presentation.main
+package com.tawfiqdev.parkingmanagement.presentation.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

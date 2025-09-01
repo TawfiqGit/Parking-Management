@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.presentation.main
+package com.tawfiqdev.parkingmanagement.presentation.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,11 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
-import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeUiState
-import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
-import com.tawfiqdev.parkingmanagement.domain.model.Pet
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
+import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.reservation.ReservationPage
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
 
@@ -76,12 +73,7 @@ fun MainScreen (modifier: Modifier = Modifier){
 @Composable
 fun ContentScreen(modifier: Modifier = Modifier, selectedIndex : Int){
     when (selectedIndex){
-        0 -> HomeScreen(HomeViewModel(), object : HomeUiState{
-            override val pets: List<Pet>
-                get() = HomeViewModel().getFakePets()
-            override val error: Boolean
-                get() = true
-        })
+        0 -> HomeScreen()
         1 -> ReservationPage()
         2 -> HistoryPage()
         3 -> SettingPage()

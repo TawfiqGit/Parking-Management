@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.tawfiqdev.parkingmanagement.data.room.entity.VehicleEntity
-import com.tawfiqdev.parkingmanagement.data.room.entity.StatusCar
+import com.tawfiqdev.parkingmanagement.domain.model.StatusCar
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -27,7 +27,7 @@ interface VehicleDao {
     fun observeAllCar(): Flow<List<VehicleEntity>>
 
     @Query("SELECT * FROM vehicle WHERE id = :id")
-    fun observeCarById(id: Long): Flow<VehicleEntity?>
+    fun observeCarById(id: Long): Flow<VehicleEntity>
 
     @Query("SELECT * FROM vehicle ORDER BY brand, model")
     fun observeCarByModel(): Flow<List<VehicleEntity>>

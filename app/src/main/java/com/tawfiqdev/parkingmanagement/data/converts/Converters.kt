@@ -1,8 +1,8 @@
 package com.tawfiqdev.parkingmanagement.data.converts
 
 import androidx.room.TypeConverter
-import com.tawfiqdev.parkingmanagement.data.room.entity.StatusCar
 import com.tawfiqdev.parkingmanagement.data.room.entity.StatusRez
+import com.tawfiqdev.parkingmanagement.domain.model.StatusCar
 import java.time.Instant
 
 class Converters {

@@ -2,7 +2,7 @@ package com.tawfiqdev.parkingmanagement.di
 
 import android.content.Context
 import androidx.room.Room
-import com.tawfiqdev.parkingmanagement.data.room.ParkingMgmtDatabase
+import com.tawfiqdev.parkingmanagement.data.room.db.ParkingMgmtDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

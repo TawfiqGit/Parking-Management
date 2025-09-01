@@ -1,19 +1,18 @@
 package com.tawfiqdev.parkingmanagement.di
 
-import com.tawfiqdev.parkingmanagement.data.repository.ReservationRepository
-import com.tawfiqdev.parkingmanagement.data.repository.ReservationRepositoryImpl
-import com.tawfiqdev.parkingmanagement.data.room.ParkingMgmtDatabase
+import com.tawfiqdev.parkingmanagement.data.repository.VehicleRepositoryImpl
+import com.tawfiqdev.parkingmanagement.domain.repository.VehicleRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+abstract class RepositoryModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun provideReservationRepository(db: ParkingMgmtDatabase): ReservationRepository = ReservationRepositoryImpl(db)
+    abstract fun bindVehicleRepository(impl: VehicleRepositoryImpl): VehicleRepository
 }

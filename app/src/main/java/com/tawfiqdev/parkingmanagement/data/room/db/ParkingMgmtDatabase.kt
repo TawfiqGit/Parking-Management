@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.data.room
+package com.tawfiqdev.parkingmanagement.data.room.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
