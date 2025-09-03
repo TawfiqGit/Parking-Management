@@ -19,7 +19,7 @@ fun AppIcon(
     modifier: Modifier = Modifier,
     painter: Painter,
     size: Dp = 24.dp,
-    tint: Color = Color.Unspecified
+    tint: Color = Color.White
 ) {
     Icon(
         modifier = modifier
@@ -34,9 +34,5 @@ fun AppIcon(
 @Preview
 @Composable
 fun AppIcon() {
-    AppIcon(
-        size = 80.dp,
-        painter = AppIcons.CalendarIcon,
-        tint = AppColor.RoseSpanish
-    )
+    AppIcon(painter = AppIcons.CalendarIcon,)
 }

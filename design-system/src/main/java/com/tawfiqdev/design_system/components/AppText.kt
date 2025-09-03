@@ -18,7 +18,7 @@ fun AppText(
     text: String,
     color: Color = AppColor.White,
     textAlignment : TextAlign = TextAlign.Start,
-    fontSize: TextUnit,
+    fontSize: TextUnit = 14.sp,
 ) {
     Text(
         modifier = modifier,

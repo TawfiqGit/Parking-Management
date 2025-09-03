@@ -15,4 +15,6 @@ object AppColor {
     val Black = Color(0xFF000000)
     val White = Color(0xFFFFFFFF)
     val RedDeep = Color(0xFFFF3333)
+    val RedSpring  = Color(0xFFBE1F35)
+    val YellowCyber  = Color(0xFFFED000)
 }
