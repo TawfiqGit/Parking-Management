@@ -3,6 +3,7 @@ package com.tawfiqdev.parkingmanagement.presentation.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -43,7 +46,10 @@ import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.icone.AppIcons.FavoriteBorder
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.ExtraMediumRoundedCornerShape
+import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
+import com.tawfiqdev.design_system.theme.NormalRoundedCornerShape
 import com.tawfiqdev.design_system.utils.Baseline1
+import com.tawfiqdev.design_system.utils.Baseline2
 import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
@@ -134,16 +140,18 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
         shape = ExtraMediumRoundedCornerShape
     ) {
         Column {
-            Box(modifier = Modifier.fillMaxWidth().height(140.dp)) {
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(140.dp)
+                .background(AppColor.White)
+            ) {
                 Image(
-                    painter = painterResource(R.drawable.city_square),
+                    painter = painterResource(R.drawable.parking_empty),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .matchParentSize()
+                        .padding(Baseline2),
                     contentScale = ContentScale.Crop
-                )
-                Box(Modifier
-                    .matchParentSize()
-                    .background(AppColor.White)
                 )
                 RatingBadge(
                     rating = 10.00 ,
@@ -205,14 +213,4 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun LoadingImageFromDisk() {
-    Image(
-        painter = painterResource(id = R.drawable.city_square),
-        contentDescription = null,
-        contentScale = ContentScale.FillWidth
-    )
 }
