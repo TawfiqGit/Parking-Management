@@ -37,4 +37,12 @@ object AppIcons {
     val VehicleIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.vehicle)
+
+    val LocationIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.map)
+
+    val NotificationIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.map)
 }

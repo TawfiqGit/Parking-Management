@@ -1,69 +1,77 @@
 package com.tawfiqdev.design_system.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
+import com.tawfiqdev.design_system.icone.AppIcons.LocationIcon
+import com.tawfiqdev.design_system.icone.AppIcons.NotificationIcon
 import com.tawfiqdev.design_system.theme.AppColor
+import com.tawfiqdev.design_system.utils.Baseline1
+import com.tawfiqdev.design_system.utils.Baseline2
+import com.tawfiqdev.design_system.utils.Baseline4
+import com.tawfiqdev.design_system.utils.Baseline5
+import com.tawfiqdev.design_system.utils.Baseline6
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppTopBar(
-    title: String = "",
-    titleSize: TextUnit = 20.sp,
-    backgroundColor: Color = AppColor.GreenRacing,
-    contentColor: Color = AppColor.White,
-    onMenuClick: () -> Unit,
-    onBackNavigation: (() -> Unit)? = null,
+fun LocationHeader(
+    location: String,
+    onNotificationsClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    TopAppBar(
-        title = {
-            AppText(
-                text = title,
-                color = contentColor,
-                fontSize = titleSize,
-                textAlignment = TextAlign.Center,
-            )
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = backgroundColor,
-            titleContentColor = contentColor,
-            navigationIconContentColor = contentColor,
-            actionIconContentColor = contentColor
-        ),
-        actions = {
-            IconButton(onClick = onMenuClick) {
-                AppIcon(
-                    painter = rememberVectorPainter(image = Icons.Filled.Menu),
-                    tint = contentColor
-                )
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(AppColor.GreenRacing)
+            .padding(horizontal = Baseline5, vertical = Baseline6)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AppIcon(painter = LocationIcon, tint = AppColor.White)
+
+                Spacer(Modifier.width(Baseline2))
+
+                AppText(text = location, color = AppColor.White)
+
+                Spacer(Modifier.width(Baseline1))
+
+                Text("▾", color = AppColor.White)
             }
-        },
-        navigationIcon = {
-            onBackNavigation?.let {
-                IconButton(onClick = it) {
-                    AppIcon(
-                        painter = rememberVectorPainter(image = Icons.Filled.ArrowBack),
-                        tint = contentColor
-                    )
-                }
-            }
+            SquareActionButton(modifier = Modifier.size(48.dp), onClick = onNotificationsClick ,color = AppColor.GreenTeal, icon = {
+                AppIcon(painter = NotificationIcon)
+            })
         }
-    )
+        Spacer(Modifier.height(Baseline5))
+
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            AppSearchField(modifier = Modifier.weight(1f))
+            SquareActionButton(modifier = Modifier.size(52.dp),color = AppColor.RoseSeaShell, onClick = {}, icon = {
+                AppText(text = "≡", color= AppColor.Black)
+            })
+        }
+    }
 }
 
 @Preview
 @Composable
 fun AppTopBarPreview() {
-    AppTopBar(title = "Test", onMenuClick = {})
+    LocationHeader(location = "India", onNotificationsClick = {})
 }

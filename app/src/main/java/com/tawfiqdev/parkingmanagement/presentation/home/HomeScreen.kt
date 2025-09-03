@@ -32,7 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.tawfiqdev.design_system.components.AppIcon
 import com.tawfiqdev.design_system.components.AppText
-import com.tawfiqdev.design_system.components.AppTopBar
+import com.tawfiqdev.design_system.components.LocationHeader
 import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.NormalRoundedCornerShape
@@ -50,7 +50,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     Scaffold(
         topBar = {
-            AppTopBar(title ="Home", onMenuClick = { /*TODO*/ })
+            LocationHeader(location = "India", onNotificationsClick = {})
         }
     ) { paddingValues ->
         Column(
