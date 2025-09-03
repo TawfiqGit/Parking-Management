@@ -21,7 +21,6 @@ import com.tawfiqdev.design_system.icone.AppIcons.NotificationIcon
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.utils.Baseline1
 import com.tawfiqdev.design_system.utils.Baseline2
-import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.design_system.utils.Baseline6
 
@@ -56,7 +55,7 @@ fun LocationHeader(
                 Text("▾", color = AppColor.White)
             }
             SquareActionButton(modifier = Modifier.size(48.dp), onClick = onNotificationsClick ,color = AppColor.GreenTeal, icon = {
-                AppIcon(painter = NotificationIcon)
+                AppIcon(painter = NotificationIcon , tint = AppColor.White)
             })
         }
         Spacer(Modifier.height(Baseline5))

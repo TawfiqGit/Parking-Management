@@ -24,11 +24,11 @@ object AppIcons {
 
     val ClockIcon: Painter
         @Composable
-        get() = painterResource(id = R.drawable.clock_icon)
+        get() = painterResource(id = R.drawable.time_icon)
 
     val AddIcon: Painter
         @Composable
-        get() = painterResource(id = R.drawable.clock_icon)
+        get() = painterResource(id = R.drawable.add_icon)
 
     val DeleteIcon: Painter
         @Composable
@@ -44,5 +44,21 @@ object AppIcons {
 
     val NotificationIcon: Painter
         @Composable
-        get() = painterResource(id = R.drawable.map)
+        get() = painterResource(id = R.drawable.notif_icon)
+
+    val FavoriteBorder: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.outline_favorite)
+
+    val SearchIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.search_icon)
+
+    val CarIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.car_icon)
+
+    val StartIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.star_icon)
 }

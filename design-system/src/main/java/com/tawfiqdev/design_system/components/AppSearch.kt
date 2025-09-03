@@ -20,7 +20,7 @@ fun AppSearchField(modifier: Modifier = Modifier) {
         value = "",
         onValueChange = {},
         leadingIcon = { AppIcon(
-            painter = AppIcons.AddIcon,
+            painter = AppIcons.SearchIcon,
             tint = AppColor.RoseSpanish
         ) },
         placeholder = { Text("Search") },
