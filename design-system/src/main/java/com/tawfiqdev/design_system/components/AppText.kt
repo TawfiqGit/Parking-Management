@@ -1,5 +1,6 @@
 package com.tawfiqdev.design_system.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,15 +20,18 @@ fun AppText(
     color: Color = AppColor.White,
     textAlignment : TextAlign = TextAlign.Start,
     fontSize: TextUnit = 14.sp,
+    onSelectedLocationClick: () -> Unit = {},
 ) {
     Text(
-        modifier = modifier,
+        modifier = modifier.clickable {
+            onSelectedLocationClick()
+        },
         text = text,
         fontSize = fontSize,
         color = color,
         textAlign = textAlignment,
         fontFamily = RobotoFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Normal
     )
 }
 

@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.tawfiqdev.design_system.components.AppIcon
 import com.tawfiqdev.design_system.components.AppText
 import com.tawfiqdev.design_system.components.LocationHeader
@@ -60,12 +61,16 @@ import com.tawfiqdev.parkingmanagement.presentation.utils.VehiclesUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
     val state by viewModel.vehiclesState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
-            LocationHeader(location = "India", onNotificationsClick = {})
+            LocationHeader(
+                location = "India",
+                onNotificationsClick = {},
+                onSelectedLocationClick = { navController.navigate("selectLocation") },
+            )
         }
     ) { paddingValues ->
         Column(

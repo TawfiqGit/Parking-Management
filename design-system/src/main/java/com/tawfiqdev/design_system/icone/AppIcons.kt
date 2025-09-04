@@ -42,6 +42,10 @@ object AppIcons {
         @Composable
         get() = painterResource(id = R.drawable.map)
 
+    val LocationSelectedIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.location)
+
     val NotificationIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.notif_icon)

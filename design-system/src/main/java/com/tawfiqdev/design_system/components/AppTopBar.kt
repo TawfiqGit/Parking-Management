@@ -1,6 +1,7 @@
 package com.tawfiqdev.design_system.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,11 +28,11 @@ import com.tawfiqdev.design_system.utils.Baseline6
 @Composable
 fun LocationHeader(
     location: String,
-    onNotificationsClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onNotificationsClick: () -> Unit = {} ,
+    onSelectedLocationClick: () -> Unit = {},
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .background(AppColor.GreenRacing)
             .padding(horizontal = Baseline5, vertical = Baseline6)
@@ -48,7 +49,7 @@ fun LocationHeader(
 
                 Spacer(Modifier.width(Baseline2))
 
-                AppText(text = location, color = AppColor.White)
+                AppText(text = location, color = AppColor.White, onSelectedLocationClick = onSelectedLocationClick)
 
                 Spacer(Modifier.width(Baseline1))
 
@@ -61,7 +62,9 @@ fun LocationHeader(
         Spacer(Modifier.height(Baseline5))
 
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            AppSearchField(modifier = Modifier.weight(1f))
+            ParkingSearch(
+                modifier = Modifier.weight(1f)
+            )
             SquareActionButton(modifier = Modifier.size(52.dp),color = AppColor.RoseSeaShell, onClick = {}, icon = {
                 AppText(text = "≡", color= AppColor.Black)
             })
@@ -72,5 +75,5 @@ fun LocationHeader(
 @Preview
 @Composable
 fun AppTopBarPreview() {
-    LocationHeader(location = "India", onNotificationsClick = {})
+    LocationHeader(location = "India")
 }
