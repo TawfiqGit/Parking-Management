@@ -11,6 +11,7 @@ object AppColor {
     val GreenTeal = Color(0xFF568F87)
     val GreenRacing = Color(0xFF064232)
     val Grey = Color(0xFFEFECEC)
+    val GreyDark = Color(0xFF6B7280)
 
     val Black = Color(0xFF000000)
     val White = Color(0xFFFFFFFF)
