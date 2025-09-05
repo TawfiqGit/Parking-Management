@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.domain.usecase
+package com.tawfiqdev.parkingmanagement.domain.usecase.vehicle
 
 import com.tawfiqdev.parkingmanagement.domain.repository.VehicleRepository
 import javax.inject.Inject

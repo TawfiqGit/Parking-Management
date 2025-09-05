@@ -38,4 +38,10 @@ class DatabaseModule {
 
     @Provides
     fun provideReservationDao(db: ParkingMgmtDatabase) = db.reservationDao()
+
+    @Provides
+    fun provideParkingDao(db: ParkingMgmtDatabase) = db.parkingDao()
+
+    @Provides
+    fun provideLocationDao(db: ParkingMgmtDatabase) = db.locationDao()
 }

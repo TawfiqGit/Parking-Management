@@ -3,8 +3,8 @@ package com.tawfiqdev.parkingmanagement.presentation.home.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tawfiqdev.parkingmanagement.domain.model.Vehicle
-import com.tawfiqdev.parkingmanagement.domain.usecase.FlowAllVehicleUseCase
-import com.tawfiqdev.parkingmanagement.domain.usecase.InsertVehicleUseCase
+import com.tawfiqdev.parkingmanagement.domain.usecase.vehicle.FlowAllVehicleUseCase
+import com.tawfiqdev.parkingmanagement.domain.usecase.vehicle.InsertVehicleUseCase
 import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
 import com.tawfiqdev.parkingmanagement.presentation.utils.VehiclesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
