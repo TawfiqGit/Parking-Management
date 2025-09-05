@@ -8,6 +8,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface ParkingRepository {
     fun observePopular(): ResultOutput<Flow<List<Parking>>, Error>
-    suspend fun getParkingById(id: Int): ResultOutput<Flow<Parking>, Error>
     suspend fun seedIfEmpty() : ResultOutput<Int, Error>
 }

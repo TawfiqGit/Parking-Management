@@ -2,15 +2,11 @@ package com.tawfiqdev.parkingmanagement.data.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "parkings" ,
-    indices = [Index(value = ["name"], unique = false)]
-)
+@Entity(tableName = "parkings")
 data class ParkingEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "category")  val category: Category = Category.CAR,
     @ColumnInfo(name = "pricePerHour")  val pricePerHour: Double,

@@ -25,23 +25,15 @@ class ParkingRepositoryImpl @Inject constructor(
             ResultOutput.Failure(Error.Database(e))
         }
 
-    override suspend fun getParkingById(id: Int): ResultOutput<Flow<Parking>, Error> =
-        try {
-            val entity : Flow<ParkingEntity> = parkingDao.getParkingById(id)
-            ResultOutput.Success(entity.map { it.toDomain() })
-        } catch (e: Exception) {
-            ResultOutput.Failure(Error.Database(e))
-        }
-
 
     override suspend fun seedIfEmpty() : ResultOutput<Int, Error> =
         try {
             val count = parkingDao.count()
             if (count == 0) {
                 val seed = listOf(
-                    ParkingEntity(name = "ParkEase Pro", pricePerHour = 5.0, rating = 4.9, distanceMins = 5, spots = 28),
-                    ParkingEntity(name = "AutoNest",     pricePerHour = 4.2, rating = 4.8, distanceMins = 10, spots = 10),
-                    ParkingEntity(name = "CityPark+",    pricePerHour = 6.0, rating = 4.7, distanceMins = 7, spots = 15)
+                    ParkingEntity(id = 1, name = "ParkEase Pro", pricePerHour = 5.0, rating = 4.9, distanceMins = 5, spots = 28),
+                    ParkingEntity(id = 2, name = "AutoNest",     pricePerHour = 4.2, rating = 4.8, distanceMins = 10, spots = 10),
+                    ParkingEntity(id = 3, name = "CityPark+",    pricePerHour = 6.0, rating = 4.7, distanceMins = 7, spots = 15)
                 )
                 parkingDao.insertAll(seed)
                 ResultOutput.Success(count)

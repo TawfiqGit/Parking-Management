@@ -3,7 +3,6 @@ package com.tawfiqdev.parkingmanagement.di
 import com.tawfiqdev.parkingmanagement.domain.repository.LocationRepository
 import com.tawfiqdev.parkingmanagement.domain.repository.ParkingRepository
 import com.tawfiqdev.parkingmanagement.domain.repository.VehicleRepository
-import com.tawfiqdev.parkingmanagement.domain.usecase.GetParkingByIdUseCase
 import com.tawfiqdev.parkingmanagement.domain.usecase.ObservePopularParkingUseCase
 import com.tawfiqdev.parkingmanagement.domain.usecase.ObserveRecentLocationsUseCase
 import com.tawfiqdev.parkingmanagement.domain.usecase.SaveLocationUseCase
@@ -40,10 +39,6 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideObservePopular(repo: ParkingRepository) = ObservePopularParkingUseCase(repo)
-
-    @Provides
-    @Singleton
-    fun provideGetParkingById(repo: ParkingRepository) = GetParkingByIdUseCase(repo)
 
     @Provides
     @Singleton

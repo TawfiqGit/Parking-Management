@@ -24,7 +24,4 @@ interface ParkingDao {
 
     @Query("SELECT * FROM parkings ORDER BY spots")
     fun observeParkingBySpot(): Flow<List<ParkingEntity>>
-
-    @Query("SELECT * FROM parkings WHERE id = :id LIMIT 1")
-    suspend fun getParkingById(id: Int): Flow<ParkingEntity>
 }
