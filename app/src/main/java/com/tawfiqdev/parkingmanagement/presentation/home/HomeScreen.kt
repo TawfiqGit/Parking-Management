@@ -3,7 +3,6 @@ package com.tawfiqdev.parkingmanagement.presentation.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,12 +25,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,22 +43,21 @@ import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.icone.AppIcons.FavoriteBorder
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.ExtraMediumRoundedCornerShape
-import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
-import com.tawfiqdev.design_system.theme.NormalRoundedCornerShape
 import com.tawfiqdev.design_system.utils.Baseline1
 import com.tawfiqdev.design_system.utils.Baseline2
 import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.parkingmanagement.R
+import com.tawfiqdev.parkingmanagement.domain.model.Parking
 import com.tawfiqdev.parkingmanagement.domain.model.Vehicle
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
-import com.tawfiqdev.parkingmanagement.presentation.utils.VehiclesUiState
+import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
-    val state by viewModel.vehiclesState.collectAsStateWithLifecycle()
+    val state by viewModel.popularParkingState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -86,7 +81,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             Spacer(modifier = Modifier.height(Baseline4))
 
             when (state) {
-                is VehiclesUiState.Loading -> {
+                is UiState.Loading -> {
                     Box(modifier = Modifier.fillMaxSize()) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center)
@@ -94,7 +89,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     }
                 }
 
-                is VehiclesUiState.Empty -> {
+                is UiState.Empty -> {
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Aucun véhicule",
@@ -106,8 +101,8 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     }
                 }
 
-                is VehiclesUiState.Error -> {
-                    val msg = (state as VehiclesUiState.Error).message
+                is UiState.Error -> {
+                    val msg = (state as UiState.Error).message
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Erreur: $msg",
@@ -118,15 +113,15 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                     }
                 }
 
-                is VehiclesUiState.Success -> {
-                    val list = (state as VehiclesUiState.Success).items
+                is UiState.Success<*> -> {
+                    val list = (state as UiState.Success<*>).items as List<*>
                     LazyRow(
                         modifier = Modifier.fillMaxWidth(),
                         contentPadding = PaddingValues(horizontal = Baseline5),
                         horizontalArrangement = Arrangement.spacedBy(Baseline4)
                     ) {
-                        items(list) { v ->
-                            ParkingCard(vehicle = v) {
+                        items(list) { p ->
+                            ParkingCard(parking = p as Parking) {
                                 // action clic sur une carte
                             }
                         }
@@ -139,7 +134,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
+fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
     Card(
         modifier = Modifier.width(260.dp),
         shape = ExtraMediumRoundedCornerShape
@@ -159,7 +154,7 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
                     contentScale = ContentScale.Crop
                 )
                 RatingBadge(
-                    rating = 10.00 ,
+                    rating = parking.rating ,
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(Baseline3)
@@ -177,7 +172,7 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
                 modifier = Modifier.background(AppColor.White).padding(Baseline4)
             ) {
                 AppText(
-                    text = "Car Parking",
+                    text = parking.category.name,
                     color = AppColor.Black
                 )
                 Spacer(Modifier.height(Baseline1))
@@ -185,11 +180,11 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     AppText(
                         modifier = Modifier.weight(1f),
-                        text = "Parking Black",
+                        text = parking.name,
                         color = AppColor.Black
                     )
                     AppText(
-                        text = String.format("€%.2f", 10.34) + "/hr",
+                        text = String.format("€%.2f", parking.pricePerHour) + "/hr",
                         color = AppColor.Black,
                     )
                 }
@@ -198,7 +193,7 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
                 Row(horizontalArrangement = Arrangement.spacedBy(Baseline5)) {
                     AssistChip(onClick = {}, label = {
                         AppText(
-                            text = "${5} Mins",
+                            text = "${parking.distanceMins} Mins",
                             color = AppColor.Black
                         )},
                         leadingIcon = {
@@ -207,7 +202,7 @@ fun ParkingCard(vehicle: Vehicle, onClickVehicle: (Vehicle) -> Unit = {}) {
                     )
                     AssistChip(onClick = {}, label = {
                         AppText(
-                            text = "${27} Spots",
+                            text = "${parking.spots} Spots",
                             color = AppColor.Black
                         )},
                         leadingIcon = {

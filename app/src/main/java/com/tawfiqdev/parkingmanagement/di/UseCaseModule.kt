@@ -42,7 +42,7 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideSeedParkingsIfEmpty(repo: ParkingRepository) = SeedParkingIfEmptyUseCase(repo)
+    fun provideSeedParkingIfEmpty(repo: ParkingRepository) = SeedParkingIfEmptyUseCase(repo)
 
     @Provides
     @Singleton

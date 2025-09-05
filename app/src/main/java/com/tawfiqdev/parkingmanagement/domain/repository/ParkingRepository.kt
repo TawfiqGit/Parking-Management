@@ -7,6 +7,6 @@ import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
 import kotlinx.coroutines.flow.Flow
 
 interface ParkingRepository {
-    fun observePopular(): ResultOutput<Flow<List<Parking>>, Error>
+    fun observePopular(): Flow<List<Parking>>
     suspend fun seedIfEmpty() : ResultOutput<Int, Error>
 }
