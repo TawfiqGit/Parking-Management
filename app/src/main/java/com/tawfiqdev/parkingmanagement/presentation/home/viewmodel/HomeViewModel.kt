@@ -35,7 +35,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             observePopularParking()
                 .catch { e ->
-                    _popularParkingState.value = UiState.Error("Erreur de chargement: ${e.fillInStackTrace()}")
+                    _popularParkingState.value = UiState.Error("Erreur de chargement: ${e.localizedMessage}")
                 }
                 .onEach { list : List<Parking> ->
                     _popularParkingState.value = if (list.isEmpty()) {

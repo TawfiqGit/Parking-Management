@@ -83,36 +83,35 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
             when (state) {
                 is UiState.Loading -> {
-                    Log.d("HomeScreen", "Loading")
                     Box(modifier = Modifier.fillMaxSize()) {
                         CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier.align(Alignment.Center),
+                            color = AppColor.GreenRacing
                         )
                     }
                 }
 
                 is UiState.Empty -> {
-                    Log.d("HomeScreen", "Empty")
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Aucun véhicule",
                             color = AppColor.Black,
                             fontSize = 16.sp,
                             textAlignment = TextAlign.Center,
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier.align(Alignment.Center),
                         )
                     }
                 }
 
                 is UiState.Error -> {
                     val msg = (state as UiState.Error).message
-                    Log.d("HomeScreen", "Error: $msg")
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Erreur: $msg",
+                            color = AppColor.Black,
                             fontSize = 16.sp,
                             textAlignment = TextAlign.Center,
-                            modifier = Modifier.align(Alignment.Center)
+                            modifier = Modifier.align(Alignment.Center),
                         )
                     }
                 }
@@ -125,7 +124,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         horizontalArrangement = Arrangement.spacedBy(Baseline4)
                     ) {
                         items(list) { p ->
-                            Log.d("HomeScreen", "parking: $p")
                             ParkingCard(parking = p as Parking) {
                                 // action clic sur une carte
                             }

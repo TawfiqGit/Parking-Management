@@ -25,9 +25,9 @@ class ParkingRepositoryImpl @Inject constructor(
             val count = parkingDao.count()
             if (count == 0) {
                 val seed = listOf(
-                    ParkingEntity(id = 1, name = "ParkEase Pro", pricePerHour = 5.0, rating = 4.9, distanceMins = 5, spots = 28),
-                    ParkingEntity(id = 2, name = "AutoNest",     pricePerHour = 4.2, rating = 4.8, distanceMins = 10, spots = 10),
-                    ParkingEntity(id = 3, name = "CityPark+",    pricePerHour = 6.0, rating = 4.7, distanceMins = 7, spots = 15)
+                    ParkingEntity(name = "ParkEase Pro", pricePerHour = 5.0, rating = 4.9, distanceMins = 5, spots = 28),
+                    ParkingEntity(name = "AutoNest",     pricePerHour = 4.2, rating = 4.8, distanceMins = 10, spots = 10),
+                    ParkingEntity(name = "CityPark+",    pricePerHour = 6.0, rating = 4.7, distanceMins = 7, spots = 15)
                 )
                 parkingDao.insertAll(seed)
                 ResultOutput.Success(seed.size)
