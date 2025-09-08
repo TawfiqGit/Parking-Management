@@ -6,13 +6,13 @@ import com.tawfiqdev.parkingmanagement.domain.model.Parking
 import com.tawfiqdev.parkingmanagement.domain.usecase.ObservePopularParkingUseCase
 import com.tawfiqdev.parkingmanagement.domain.usecase.SeedParkingIfEmptyUseCase
 import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
-import com.tawfiqdev.parkingmanagement.domain.utils.getOrNull
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,6 +34,9 @@ class HomeViewModel @Inject constructor(
     private fun observeParking() {
         viewModelScope.launch {
             observePopularParking()
+                .catch { e ->
+                    _popularParkingState.value = UiState.Error("Erreur de chargement: ${e.fillInStackTrace()}")
+                }
                 .onEach { list : List<Parking> ->
                     _popularParkingState.value = if (list.isEmpty()) {
                         UiState.Empty
@@ -41,10 +44,7 @@ class HomeViewModel @Inject constructor(
                         UiState.Success(list)
                     }
                 }
-                .catch {
-                    _popularParkingState.value = UiState.Error("Erreur de chargement")
-                }
-                .collect { /* no-op */ }
+                .collect()
         }
     }
 

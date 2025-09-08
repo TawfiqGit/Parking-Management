@@ -1,6 +1,7 @@
 package com.tawfiqdev.parkingmanagement.presentation.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -82,6 +83,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
             when (state) {
                 is UiState.Loading -> {
+                    Log.d("HomeScreen", "Loading")
                     Box(modifier = Modifier.fillMaxSize()) {
                         CircularProgressIndicator(
                             modifier = Modifier.align(Alignment.Center)
@@ -90,6 +92,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 }
 
                 is UiState.Empty -> {
+                    Log.d("HomeScreen", "Empty")
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Aucun véhicule",
@@ -103,6 +106,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
 
                 is UiState.Error -> {
                     val msg = (state as UiState.Error).message
+                    Log.d("HomeScreen", "Error: $msg")
                     Box(modifier = Modifier.fillMaxSize()) {
                         AppText(
                             text = "Erreur: $msg",
@@ -121,6 +125,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         horizontalArrangement = Arrangement.spacedBy(Baseline4)
                     ) {
                         items(list) { p ->
+                            Log.d("HomeScreen", "parking: $p")
                             ParkingCard(parking = p as Parking) {
                                 // action clic sur une carte
                             }
