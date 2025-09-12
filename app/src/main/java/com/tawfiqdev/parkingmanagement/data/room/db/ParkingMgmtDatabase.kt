@@ -10,13 +10,15 @@ import com.tawfiqdev.parkingmanagement.data.room.dao.ReservationDao
 import com.tawfiqdev.parkingmanagement.data.room.dao.UserDao
 import com.tawfiqdev.parkingmanagement.data.room.dao.VehicleDao
 import com.tawfiqdev.parkingmanagement.data.room.entity.LocationEntity
+import com.tawfiqdev.parkingmanagement.data.room.entity.LocationFts
 import com.tawfiqdev.parkingmanagement.data.room.entity.ParkingEntity
+import com.tawfiqdev.parkingmanagement.data.room.entity.RecentLocationEntity
 import com.tawfiqdev.parkingmanagement.data.room.entity.ReservationEntity
 import com.tawfiqdev.parkingmanagement.data.room.entity.UserEntity
 import com.tawfiqdev.parkingmanagement.data.room.entity.VehicleEntity
 
 @Database(
-    entities = [VehicleEntity::class , ReservationEntity::class , UserEntity::class, ParkingEntity::class, LocationEntity::class ],
+    entities = [VehicleEntity::class , ReservationEntity::class , UserEntity::class, ParkingEntity::class, LocationEntity::class, LocationFts::class, RecentLocationEntity::class ],
     version = 1,
     exportSchema = false
 )

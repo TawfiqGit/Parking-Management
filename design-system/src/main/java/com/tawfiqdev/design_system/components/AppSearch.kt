@@ -67,7 +67,7 @@ fun LocationSearchBar(
             .fillMaxWidth()
             .height(52.dp)
             .clip(MediumRoundedCornerShape),
-        placeholder = { AppText(text = "Golden Avenue", color = AppColor.Black)},
+        placeholder = { AppText(text = "Location to select", color = AppColor.Black)},
         leadingIcon = { AppIcon(painter = AppIcons.LocationSelectedIcon, tint = AppColor.GreenRacing) },
         trailingIcon = {
             if (value.isNotEmpty()) {
@@ -95,6 +95,18 @@ fun LocationSearchBar(
 
 @Preview
 @Composable
-fun SearchPreview() {
+fun SearchParkingPreview() {
     ParkingSearch()
+}
+
+
+@Preview
+@Composable
+fun SearchLocationPreview() {
+    LocationSearchBar(
+        value = "Paris",
+        onValueChange = {},
+        onClear = {},
+        onSearch = {}
+    )
 }

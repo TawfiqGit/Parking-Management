@@ -18,6 +18,7 @@ import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
+import com.tawfiqdev.design_system.utils.Baseline5
 
 @Composable
 fun SearchSectionHeader(title: String) {
@@ -47,6 +48,6 @@ fun SearchResultRow(title: String, subtitle: String, onClick: () -> Unit) {
 
         AppText(text = subtitle, fontSize = 14.sp, color = AppColor.GreyDark)
 
-        Divider(modifier = Modifier.padding(top = 12.dp))
+        Divider(modifier = Modifier.padding(top = Baseline3))
     }
 }

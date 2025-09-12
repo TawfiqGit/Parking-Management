@@ -1,11 +1,11 @@
 package com.tawfiqdev.parkingmanagement.domain.repository
 
 import com.tawfiqdev.parkingmanagement.domain.model.LocationSelection
-import com.tawfiqdev.parkingmanagement.domain.utils.Error
-import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
-import kotlinx.coroutines.flow.Flow
 
 interface LocationRepository {
-    fun observeRecent(): ResultOutput<Flow<List<LocationSelection>>, Error>
-    suspend fun save(selection: LocationSelection): ResultOutput<Unit, Error>
+    suspend fun suggestions(query: String, limit: Int = 10): List<LocationSelection>
+    suspend fun results(query: String, limit: Int = 20): List<LocationSelection>
+    suspend fun recents(limit: Int = 10): List<LocationSelection>
+    suspend fun markAsRecent(id: Int)
+    suspend fun seedIfEmpty(): Int
 }
