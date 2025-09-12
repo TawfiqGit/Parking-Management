@@ -5,7 +5,7 @@ import com.tawfiqdev.parkingmanagement.data.mapper.toEntity
 import com.tawfiqdev.parkingmanagement.data.room.dao.VehicleDao
 import com.tawfiqdev.parkingmanagement.data.room.entity.VehicleEntity
 import com.tawfiqdev.parkingmanagement.domain.model.Vehicle
-import com.tawfiqdev.parkingmanagement.domain.utils.VehicleError
+import com.tawfiqdev.parkingmanagement.domain.utils.Error
 import com.tawfiqdev.parkingmanagement.domain.repository.VehicleRepository
 import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
 import kotlinx.coroutines.flow.Flow
@@ -16,43 +16,42 @@ class VehicleRepositoryImpl @Inject constructor(
     private val vehicleDao: VehicleDao,
 ): VehicleRepository {
 
-    override suspend fun insert(vehicle: Vehicle): ResultOutput<Unit, VehicleError> =
+    override suspend fun insert(vehicle: Vehicle): ResultOutput<Unit, Error> =
         try {
             vehicleDao.insert(vehicle.toEntity())
             ResultOutput.Success(Unit)
         } catch (e: Exception) {
-            ResultOutput.Failure(VehicleError.Database(e))
+            ResultOutput.Failure(Error.Database(e))
         }
 
 
-    override suspend fun update(vehicle: Vehicle): ResultOutput<Unit, VehicleError> =
+    override suspend fun update(vehicle: Vehicle): ResultOutput<Unit, Error> =
         try {
             vehicleDao.update(vehicle.toEntity())
             ResultOutput.Success(Unit)
         } catch (e: Exception) {
-            ResultOutput.Failure(VehicleError.Database(e))
+            ResultOutput.Failure(Error.Database(e))
         }
 
-    override suspend fun delete(vehicle: Vehicle): ResultOutput<Unit, VehicleError> =
+    override suspend fun delete(vehicle: Vehicle): ResultOutput<Unit, Error> =
         try {
             vehicleDao.delete(vehicle.toEntity())
             ResultOutput.Success(Unit)
         } catch (e: Exception) {
-            ResultOutput.Failure(VehicleError.Database(e))
+            ResultOutput.Failure(Error.Database(e))
         }
 
-    override suspend fun getAll(): ResultOutput<List<Vehicle>, VehicleError> {
+    override suspend fun getAll(): ResultOutput<List<Vehicle>, Error> {
         TODO("Not yet implemented")
     }
 
     override fun flowAll(): Flow<List<Vehicle>> = vehicleDao.observeAllCar().map { it.map { e -> e.toDomain() } }
 
-
-    override suspend fun getById(id: Long): ResultOutput<Flow<Vehicle>, VehicleError> =
+    override suspend fun getById(id: Long): ResultOutput<Flow<Vehicle>, Error> =
         try {
             val entity : Flow<VehicleEntity> = vehicleDao.observeCarById(id)
             ResultOutput.Success(entity.map { it.toDomain() })
         } catch (e: Exception) {
-            ResultOutput.Failure(VehicleError.Database(e))
+            ResultOutput.Failure(Error.Database(e))
         }
 }

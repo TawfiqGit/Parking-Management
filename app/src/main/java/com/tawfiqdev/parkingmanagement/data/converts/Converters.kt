@@ -1,6 +1,7 @@
 package com.tawfiqdev.parkingmanagement.data.converts
 
 import androidx.room.TypeConverter
+import com.tawfiqdev.parkingmanagement.data.room.entity.Category
 import com.tawfiqdev.parkingmanagement.data.room.entity.StatusRez
 import com.tawfiqdev.parkingmanagement.domain.model.StatusCar
 import java.time.Instant
@@ -29,4 +30,12 @@ class Converters {
     // String -> StatusCar
     @TypeConverter
     fun stringToVehicleStatus(value: String?): StatusCar? = value?.let { StatusCar.valueOf(it) }
+
+    // StatusCar -> String
+    @TypeConverter
+    fun categoryToString(value: Category?): String? = value?.name
+
+    // String -> StatusCar
+    @TypeConverter
+    fun stringToCategory(value: String?): Category? = value?.let { Category.valueOf(it) }
 }

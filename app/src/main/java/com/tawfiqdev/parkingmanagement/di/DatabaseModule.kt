@@ -8,6 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 /***
@@ -31,6 +33,9 @@ class DatabaseModule {
     }
 
     @Provides
+    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
     fun provideCarDao(db: ParkingMgmtDatabase) = db.vehicleDao()
 
     @Provides
@@ -38,4 +43,10 @@ class DatabaseModule {
 
     @Provides
     fun provideReservationDao(db: ParkingMgmtDatabase) = db.reservationDao()
+
+    @Provides
+    fun provideParkingDao(db: ParkingMgmtDatabase) = db.parkingDao()
+
+    @Provides
+    fun provideLocationDao(db: ParkingMgmtDatabase) = db.locationDao()
 }
