@@ -6,6 +6,11 @@ import androidx.compose.ui.res.painterResource
 import com.tawfiqdev.design_system.R
 
 object AppIcons {
+
+    val AppIcon: Painter
+        @Composable
+        get() = painterResource(id = R.drawable.app_icon)
+
     val ErrorIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.error_icon)
