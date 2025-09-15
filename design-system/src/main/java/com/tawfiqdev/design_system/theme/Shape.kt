@@ -18,6 +18,9 @@ val MediumRoundedCornerShape
 val ExtraMediumRoundedCornerShape
     get() = RoundedCornerShape(20.dp)
 
+val SmallLargeRoundedCornerShape
+    get() = RoundedCornerShape(24.dp)
+
 val LargeRoundedCornerShape
     get() = RoundedCornerShape(32.dp)
 

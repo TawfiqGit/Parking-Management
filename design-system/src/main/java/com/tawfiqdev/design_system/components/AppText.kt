@@ -20,6 +20,7 @@ fun AppText(
     color: Color = AppColor.White,
     textAlignment : TextAlign = TextAlign.Start,
     fontSize: TextUnit = 14.sp,
+    fontWeight : FontWeight = FontWeight.Normal,
     onSelectedLocationClick: () -> Unit = {},
 ) {
     Text(
@@ -30,8 +31,8 @@ fun AppText(
         fontSize = fontSize,
         color = color,
         textAlign = textAlignment,
-        fontFamily = RobotoFamily,
-        fontWeight = FontWeight.Normal
+        fontWeight = fontWeight,
+        fontFamily = RobotoFamily
     )
 }
 

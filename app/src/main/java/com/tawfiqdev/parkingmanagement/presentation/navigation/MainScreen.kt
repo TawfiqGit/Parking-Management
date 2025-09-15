@@ -88,7 +88,7 @@ fun MainScreen(
                 )
             }
             composable(Routes.Home) { HomeScreen(navController = navController) }
-            composable(Routes.Booking) { BookingScreen() }
+            composable(Routes.Booking) { BookingScreen(navController = navController) }
             composable(Routes.History) { HistoryPage() }
             composable(Routes.Setting) { SettingPage() }
 
