@@ -1,6 +1,9 @@
 package com.tawfiqdev.design_system.components
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +15,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
+import com.tawfiqdev.design_system.theme.ExtraMediumRoundedCornerShape
+import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
 import com.tawfiqdev.design_system.theme.SmallRoundedCornerShape
 
 @Composable
@@ -28,6 +33,15 @@ fun AppIcon(
         painter = painter,
         contentDescription = null,
         tint = tint
+    )
+}
+
+@Composable
+fun AppIconArrowBack() {
+    Icon(
+        imageVector = Icons.Default.ArrowBack,
+        contentDescription = null,
+        tint = AppColor.Black
     )
 }
 

@@ -1,7 +1,6 @@
 package com.tawfiqdev.parkingmanagement.presentation.navigation
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -15,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,7 +24,7 @@ import com.tawfiqdev.parkingmanagement.domain.model.NavItem
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
-import com.tawfiqdev.parkingmanagement.presentation.reservation.ReservationPage
+import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
 import com.tawfiqdev.parkingmanagement.presentation.utils.Routes
 import kotlinx.coroutines.flow.StateFlow
@@ -41,7 +39,7 @@ fun MainScreen(
 
     val navItems = listOf(
         NavItem("Home", Icons.Default.Home, Routes.Home),
-        NavItem("Reservation", Icons.Default.DateRange, Routes.Reservation),
+        NavItem("Booking", Icons.Default.DateRange, Routes.Booking),
         NavItem("History", Icons.Default.Search, Routes.History),
         NavItem("Setting", Icons.Default.Settings, Routes.Setting)
     )
@@ -90,7 +88,7 @@ fun MainScreen(
                 )
             }
             composable(Routes.Home) { HomeScreen(navController = navController) }
-            composable(Routes.Reservation) { ReservationPage() }
+            composable(Routes.Booking) { BookingScreen(navController = navController) }
             composable(Routes.History) { HistoryPage() }
             composable(Routes.Setting) { SettingPage() }
 
