@@ -7,4 +7,5 @@ import javax.inject.Inject
 @HiltViewModel
 class BookingViewModel @Inject constructor() : ViewModel()   {
 
+
 }
