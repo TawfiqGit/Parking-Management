@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.tawfiqdev.data.room.entity.VehicleEntity
-import com.tawfiqdev.domain.model.StatusCar
+import com.tawfiqdev.domain.enums.StatusCar
 import kotlinx.coroutines.flow.Flow
 
 @Dao

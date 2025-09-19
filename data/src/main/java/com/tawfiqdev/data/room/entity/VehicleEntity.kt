@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.tawfiqdev.domain.model.StatusCar
+import com.tawfiqdev.domain.enums.StatusCar
 
 @Entity(
     tableName = "vehicle" ,

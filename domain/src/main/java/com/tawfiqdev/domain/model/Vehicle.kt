@@ -1,10 +1,6 @@
 package com.tawfiqdev.domain.model
 
-enum class StatusCar {
-    AVAILABLE,
-    UNAVAILABLE,
-    MAINTENANCE,
-}
+import com.tawfiqdev.domain.enums.StatusCar
 
 data class Vehicle(
     val id: Long,

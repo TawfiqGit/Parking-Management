@@ -2,8 +2,8 @@ package com.tawfiqdev.data.converts
 
 import androidx.room.TypeConverter
 import com.tawfiqdev.domain.enums.Category
-import com.tawfiqdev.domain.enums.StatusRez
-import com.tawfiqdev.domain.model.StatusCar
+import com.tawfiqdev.domain.enums.StatusCar
+import com.tawfiqdev.domain.enums.ReservationStatus
 import java.time.Instant
 
 class Converters {
@@ -17,11 +17,11 @@ class Converters {
 
     // StatusRez -> String
     @TypeConverter
-    fun reservationStatusToString(value: StatusRez?): String? = value?.name
+    fun reservationStatusToString(value: ReservationStatus?): String? = value?.name
 
     // String -> StatusRez
     @TypeConverter
-    fun stringToReservationStatus(value: String?): StatusRez? = value?.let { StatusRez.valueOf(it) }
+    fun stringToReservationStatus(value: String?): ReservationStatus? = value?.let { ReservationStatus.valueOf(it) }
 
     // StatusCar -> String
     @TypeConverter

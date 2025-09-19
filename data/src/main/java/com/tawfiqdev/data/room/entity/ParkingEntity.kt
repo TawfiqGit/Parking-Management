@@ -6,18 +6,16 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.tawfiqdev.domain.enums.Category
 
-@Entity(
-    tableName = "parkings" ,
-    indices = [Index(value = ["name"], unique = true)]
-)
+@Entity(tableName = "parking")
 data class ParkingEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "category")  val category: Category = Category.CAR,
-    @ColumnInfo(name = "pricePerHour")  val pricePerHour: Double,
-    @ColumnInfo(name = "rating") val rating: Double,
-    @ColumnInfo(name = "distanceMins")  val distanceMins: Int,
-    @ColumnInfo(name = "spots")  val spots: Int,
-    @ColumnInfo(name = "imageRes") val imageRes: Int? = null,
-    @ColumnInfo(name = "imageUrl")  val imageUrl: String? = null
+    @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    val name: String,
+    val address: String,
+    val city: String? = null,
+    val country: String? = null,
+    val latitude: Double? = null,
+    val longitude: Double? = null,
+    val timezone: String = "Europe/Paris",
+    @ColumnInfo(name = "open_24_7") val open24_7: Boolean = true,
+    @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis()
 )

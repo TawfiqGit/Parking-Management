@@ -1,9 +1,9 @@
 package com.tawfiqdev.data.repository
 
-import com.tawfiqdev.data.room.db.ParkingMgmtDatabase
+import com.tawfiqdev.data.room.ParkingMgmtDatabase
 import com.tawfiqdev.data.room.entity.ReservationEntity
 import com.tawfiqdev.data.room.entity.VehicleEntity
-import com.tawfiqdev.domain.enums.StatusRez
+import com.tawfiqdev.domain.enums.ReservationStatus
 import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 import javax.inject.Inject
@@ -32,7 +32,7 @@ class ReservationRepositoryImpl @Inject constructor(
             userId = userId,
             startTime = start,
             endTime = end,
-            statusRes = StatusRez.CONFIRMED,
+            statusRes = ReservationStatus.CONFIRMED,
             notes = notes
         )
         return database.reservationDao().insert(reservation)

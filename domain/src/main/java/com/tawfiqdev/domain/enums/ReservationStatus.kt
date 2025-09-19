@@ -1,6 +1,6 @@
 package com.tawfiqdev.domain.enums
 
-enum class StatusRez {
+enum class ReservationStatus {
     PENDING,
     CONFIRMED,
     CANCELLED,

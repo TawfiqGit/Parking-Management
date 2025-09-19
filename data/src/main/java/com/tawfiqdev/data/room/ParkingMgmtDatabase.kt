@@ -1,4 +1,4 @@
-package com.tawfiqdev.data.room.db
+package com.tawfiqdev.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
