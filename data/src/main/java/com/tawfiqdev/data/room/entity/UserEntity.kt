@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "app_user",
+    tableName = "user",
     indices = [Index(value = ["email"], unique = true)]
 )
 data class UserEntity(

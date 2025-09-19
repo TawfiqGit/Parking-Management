@@ -1,8 +1,9 @@
 package com.tawfiqdev.domain.enums
 
-enum class ReservationStatus {
-    PENDING,
-    CONFIRMED,
+enum class ReservationStatus{
+    BOOKED,
+    ACTIVE,
+    COMPLETED,
     CANCELLED,
-    COMPLETED
+    NO_SHOW
 }

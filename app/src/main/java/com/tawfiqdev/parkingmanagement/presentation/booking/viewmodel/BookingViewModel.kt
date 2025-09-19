@@ -10,5 +10,4 @@ class BookingViewModel @Inject constructor(
     private val observePopularParking: ObservePopularParkingUseCase
 ) : ViewModel()   {
 
-
 }

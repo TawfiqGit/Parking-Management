@@ -14,7 +14,7 @@ import com.tawfiqdev.design_system.utils.Baseline0
 import com.tawfiqdev.design_system.utils.Baseline2
 
 @Composable
-fun RatingBadge(rating: Double, modifier: Modifier = Modifier) {
+fun RatingBadge(rating: Double?, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .shadow(

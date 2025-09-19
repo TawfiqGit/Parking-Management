@@ -1,4 +1,4 @@
-package com.tawfiqdev.data.repository
+package com.tawfiqdev.data.repository.reservation
 
 import com.tawfiqdev.data.room.entity.VehicleEntity
 import kotlinx.coroutines.flow.Flow
@@ -17,9 +17,11 @@ interface ReservationRepository {
 
     suspend fun createReservationSafe(
         vehicleId: Long,
-        userId : Long,
+        userId: Long,
+        parkingId: Long,
+        spotId: Long?,
         start: Instant,
         end: Instant,
-        notes: String? = null
+        expectedPriceCents: Long? = null
     ): Long
 }

@@ -43,7 +43,7 @@ data class ReservationEntity(
     @ColumnInfo(name = "spot_id") val spotId: Long?,
     @ColumnInfo(name = "starts_at") val startsAt: Long,
     @ColumnInfo(name = "ends_at") val endsAt: Long,
-    @ColumnInfo(name = "status") val status: ReservationStatus = ReservationStatus.PENDING,
+    @ColumnInfo(name = "status") val status: ReservationStatus = ReservationStatus.ACTIVE,
     @ColumnInfo(name = "expected_price_cents") val expectedPriceCents: Long? = null,
     @ColumnInfo(name = "created_at") val createdAt: Long = System.currentTimeMillis()
 )

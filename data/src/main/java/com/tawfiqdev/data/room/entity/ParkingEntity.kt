@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.tawfiqdev.domain.enums.Category
 
-@Entity(tableName = "parking")
+@Entity(tableName = "parkings")
 data class ParkingEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
     val name: String,

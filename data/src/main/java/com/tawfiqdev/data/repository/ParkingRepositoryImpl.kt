@@ -26,13 +26,28 @@ class ParkingRepositoryImpl @Inject constructor(
                 val seed = listOf(
                     ParkingEntity(
                         name = "ParkEase Pro",
-                        pricePerHour = 5.0,
-                        rating = 4.9,
-                        distanceMins = 5,
-                        spots = 28
+                        address = "10 Rue de la Paix",
+                        city = "Paris",
+                        country = "FR",
+                        latitude = 48.8698,
+                        longitude = 2.3320
                     ),
-                    ParkingEntity(name = "AutoNest",     pricePerHour = 4.2, rating = 4.8, distanceMins = 10, spots = 10),
-                    ParkingEntity(name = "CityPark+",    pricePerHour = 6.0, rating = 4.7, distanceMins = 7, spots = 15)
+                    ParkingEntity(
+                        name = "AutoNest",
+                        address = "5 Avenue des Champs-Élysées",
+                        city = "Paris",
+                        country = "FR",
+                        latitude = 48.8695,
+                        longitude = 2.3073
+                    ),
+                    ParkingEntity(
+                        name = "CityPark+",
+                        address = "3 Boulevard Haussmann",
+                        city = "Paris",
+                        country = "FR",
+                        latitude = 48.8720,
+                        longitude = 2.3325
+                    )
                 )
                 parkingDao.insertAll(seed)
                 ResultOutput.Success(seed.size)
