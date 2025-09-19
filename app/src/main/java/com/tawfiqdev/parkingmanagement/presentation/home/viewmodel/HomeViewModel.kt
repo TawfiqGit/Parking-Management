@@ -2,10 +2,10 @@ package com.tawfiqdev.parkingmanagement.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tawfiqdev.parkingmanagement.domain.model.Parking
-import com.tawfiqdev.parkingmanagement.domain.usecase.ObservePopularParkingUseCase
-import com.tawfiqdev.parkingmanagement.domain.usecase.SeedParkingIfEmptyUseCase
-import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
+import com.tawfiqdev.domain.model.Parking
+import com.tawfiqdev.domain.usecase.ObservePopularParkingUseCase
+import com.tawfiqdev.domain.usecase.SeedParkingIfEmptyUseCase
+import com.tawfiqdev.domain.utils.ResultOutput
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val observePopularParking : ObservePopularParkingUseCase,
+    private val observePopularParking: ObservePopularParkingUseCase,
     private val seed: SeedParkingIfEmptyUseCase,
 ) : ViewModel() {
 
@@ -49,7 +49,7 @@ class HomeViewModel @Inject constructor(
     }
 
     fun seedParking() = viewModelScope.launch {
-        when (val res = seed()) {
+        when (seed()) {
             is ResultOutput.Success -> {
                 // OK : res.value = nb insérés (0 si déjà peuplé)
             }

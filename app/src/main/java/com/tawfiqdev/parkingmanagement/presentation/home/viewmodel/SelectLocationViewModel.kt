@@ -2,8 +2,8 @@ package com.tawfiqdev.parkingmanagement.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tawfiqdev.parkingmanagement.domain.model.LocationSelection
-import com.tawfiqdev.parkingmanagement.domain.repository.LocationRepository
+import com.tawfiqdev.domain.model.LocationSelection
+import com.tawfiqdev.domain.repository.LocationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

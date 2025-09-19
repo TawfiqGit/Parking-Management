@@ -58,7 +58,7 @@ import com.tawfiqdev.design_system.theme.NormalRoundedCornerShape
 import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
-import com.tawfiqdev.parkingmanagement.domain.model.LocationSelection
+import com.tawfiqdev.domain.model.LocationSelection
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.SelectLocationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -37,7 +36,7 @@ import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
 import com.tawfiqdev.design_system.theme.SmallLargeRoundedCornerShape
 import com.tawfiqdev.design_system.theme.SmallMediumRoundedCornerShape
-import com.tawfiqdev.parkingmanagement.domain.model.Booking
+import com.tawfiqdev.domain.model.Booking
 
 @Composable
 fun BookingCard(
