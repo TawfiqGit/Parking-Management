@@ -2,10 +2,10 @@ package com.tawfiqdev.parkingmanagement.presentation.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tawfiqdev.parkingmanagement.domain.model.Parking
-import com.tawfiqdev.parkingmanagement.domain.usecase.ObservePopularParkingUseCase
-import com.tawfiqdev.parkingmanagement.domain.usecase.SeedParkingIfEmptyUseCase
-import com.tawfiqdev.parkingmanagement.domain.utils.ResultOutput
+import com.tawfiqdev.model.Parking
+import com.tawfiqdev.usecase.ObservePopularParkingUseCase
+import com.tawfiqdev.usecase.SeedParkingIfEmptyUseCase
+import com.tawfiqdev.utils.ResultOutput
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -48,6 +48,6 @@ fun SearchResultRow(title: String, subtitle: String, onClick: () -> Unit) {
 
         AppText(text = subtitle, fontSize = 14.sp, color = AppColor.GreyDark)
 
-        Divider(modifier = Modifier.padding(top = Baseline3))
+        Spacer(modifier = Modifier.padding(top = Baseline3))
     }
 }
