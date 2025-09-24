@@ -3,6 +3,7 @@ package com.tawfiqdev.data.room.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.tawfiqdev.data.room.entity.VehicleEntity
@@ -11,6 +12,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VehicleDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(items: List<VehicleEntity>)
     @Insert
     suspend fun insert(vehicleEntity: VehicleEntity) : Long
 
@@ -31,4 +34,7 @@ interface VehicleDao {
 
     @Query("SELECT * FROM vehicle ORDER BY brand, model")
     fun observeCarByModel(): Flow<List<VehicleEntity>>
+
+    @Query("SELECT COUNT(*) FROM vehicle")
+    suspend fun count(): Int
 }

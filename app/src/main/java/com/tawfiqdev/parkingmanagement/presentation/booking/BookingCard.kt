@@ -36,11 +36,11 @@ import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
 import com.tawfiqdev.design_system.theme.SmallLargeRoundedCornerShape
 import com.tawfiqdev.design_system.theme.SmallMediumRoundedCornerShape
-import com.tawfiqdev.domain.model.Booking
+import com.tawfiqdev.domain.model.ReservationSummary
 
 @Composable
 fun BookingCard(
-    booking: Booking,
+    summary: ReservationSummary,
     onRebook: () -> Unit,
     onETicket: () -> Unit,
     modifier: Modifier = Modifier
@@ -56,7 +56,7 @@ fun BookingCard(
                 modifier = Modifier.height(IntrinsicSize.Min)
             ) {
                 AsyncImage(
-                    model = booking.imageUrl,
+                    model = "https://tse1.mm.bing.net/th/id/OIP.M2xGcfuqiCMAFSNAjDGd6wHaEK?pid=Api",
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -68,36 +68,51 @@ fun BookingCard(
                 Spacer(Modifier.width(12.dp))
 
                 Column(Modifier.weight(1f)) {
-                    CategoryChip(category = booking.category)
+                    CategoryChip(category = summary.status.name)
 
                     Spacer(Modifier.height(2.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = booking.title,
+                            text = summary.parkingName ,
                             color = AppColor.GreenRacing,
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 18.sp,
                             maxLines = 1,
                         )
                         Spacer(Modifier.width(6.dp))
-                        RatingPill(rating = booking.rating)
+
+                        //RatingPill(rating = reservation.parkingId?.toDouble() ?: 0.00)
                     }
 
                     Spacer(Modifier.height(2.dp))
 
-                    LocationRow(city = booking.city)
+                    LocationRow(city = summary.parkingAddress ?: "—")
 
                     Spacer(Modifier.height(6.dp))
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        AppText(
-                            text = booking.pricePerHour,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = AppColor.GreenRacing
-                        )
-                        AppText(modifier = Modifier.padding(top = 3.dp), text = " /hr", color = AppColor.GreenRacing)
+                    // Véhicule + place
+                    val spotText = summary.spotLabel?.let { " • $it" }.orEmpty()
+                    AppText(
+                        text = summary.vehicleLabel + spotText,
+                        fontSize = 14.sp,
+                        color = AppColor.GreyDark
+                    )
+
+                    summary.parkingName.let { label ->
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            AppText(
+                                text = label,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = AppColor.GreenRacing
+                            )
+                            AppText(
+                                modifier = Modifier.padding(top = 3.dp),
+                                text = " /hr",
+                                color = AppColor.GreenRacing
+                            )
+                        }
                     }
                 }
             }

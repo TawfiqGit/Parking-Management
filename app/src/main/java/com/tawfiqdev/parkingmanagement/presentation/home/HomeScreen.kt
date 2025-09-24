@@ -128,6 +128,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         }
                     }
                 }
+                else -> {}
             }
         }
     }

@@ -49,7 +49,4 @@ class DatabaseModule {
 
     @Provides
     fun provideLocationDao(db: ParkingMgmtDatabase) = db.locationDao()
-
-    @Provides
-    fun provideOccupancyDao(db: ParkingMgmtDatabase) = db.occupancyDao()
 }

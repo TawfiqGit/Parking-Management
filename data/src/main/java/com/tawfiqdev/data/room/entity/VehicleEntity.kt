@@ -11,7 +11,7 @@ import com.tawfiqdev.domain.enums.StatusCar
     indices = [Index(value = ["registration_plate"], unique = true)]
 )
 data class VehicleEntity (
-    @PrimaryKey(autoGenerate = true) val id : Long,
+    @PrimaryKey(autoGenerate = true) val id : Long = 0L ,
     @ColumnInfo(name = "registration_plate") val registrationPlate : String,
     @ColumnInfo(name = "brand") val marque : String,
     @ColumnInfo(name = "model") val model : String,

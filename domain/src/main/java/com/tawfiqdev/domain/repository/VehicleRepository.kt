@@ -11,5 +11,6 @@ interface VehicleRepository {
     suspend fun delete(vehicle: Vehicle): ResultOutput<Unit, Error>
     suspend fun getAll() : ResultOutput<List<Vehicle>, Error>
     suspend fun getById(id: Long): ResultOutput<Flow<Vehicle>, Error>
+    suspend fun seedIfEmpty() : ResultOutput<Int, Error>
     fun flowAll(): Flow<List<Vehicle>>
 }

@@ -17,7 +17,16 @@ class ParkingRepositoryImpl @Inject constructor(
 ): ParkingRepository {
 
     override suspend fun observePopular(): Flow<List<Parking>> =
-        parkingDao.observeParking().map { it.map { e -> e.toDomain() } }
+        parkingDao.observeParking().map { it.map { e ->
+            e.toDomain(
+                pricePerHour = 0.0,
+                rating = 0.0,
+                distanceMins = 0,
+                spots = 0,
+                imageRes = 0,
+                imageUrl = ""
+            )
+        }}
 
     override suspend fun seedIfEmpty() : ResultOutput<Int, Error> =
         try {

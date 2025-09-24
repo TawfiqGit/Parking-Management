@@ -5,14 +5,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.tawfiqdev.data.converts.Converters
 import com.tawfiqdev.data.room.dao.LocationDao
-import com.tawfiqdev.data.room.dao.OccupancyDao
 import com.tawfiqdev.data.room.dao.ParkingDao
 import com.tawfiqdev.data.room.dao.ReservationDao
 import com.tawfiqdev.data.room.dao.UserDao
 import com.tawfiqdev.data.room.dao.VehicleDao
 import com.tawfiqdev.data.room.entity.LocationEntity
 import com.tawfiqdev.data.room.entity.LocationFts
-import com.tawfiqdev.data.room.entity.OccupancyEntity
 import com.tawfiqdev.data.room.entity.ParkingEntity
 import com.tawfiqdev.data.room.entity.ParkingLevelEntity
 import com.tawfiqdev.data.room.entity.ParkingSpotEntity
@@ -32,7 +30,6 @@ import com.tawfiqdev.data.room.entity.VehicleEntity
         ParkingSpotEntity::class,
         ParkingLevelEntity::class,
         ParkingEntity::class,
-        OccupancyEntity::class,
         LocationFts::class,
         LocationEntity::class
     ],
@@ -46,5 +43,4 @@ abstract class ParkingMgmtDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun parkingDao(): ParkingDao
     abstract fun locationDao(): LocationDao
-    abstract fun occupancyDao(): OccupancyDao
 }

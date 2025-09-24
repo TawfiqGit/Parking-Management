@@ -1,5 +1,6 @@
 package com.tawfiqdev.parkingmanagement.presentation.booking
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -31,18 +32,23 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.tawfiqdev.design_system.components.AppIconAdd
 import com.tawfiqdev.design_system.components.AppIconArrowBack
 import com.tawfiqdev.design_system.components.AppText
 import com.tawfiqdev.design_system.theme.AppColor
+import com.tawfiqdev.domain.model.ReservationSummary
 import com.tawfiqdev.parkingmanagement.presentation.booking.viewmodel.BookingViewModel
+import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
+import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun BookingScreen(
     navController: NavController,
     viewModel: BookingViewModel = hiltViewModel()
 ) {
-    val bookings by viewModel.popularParkingState.collectAsStateWithLifecycle()
+    val reservationState by viewModel.reservationState.collectAsStateWithLifecycle()
+    val actionState by viewModel.actionState.collectAsStateWithLifecycle()
     var selectedTab by rememberSaveable { mutableIntStateOf(1) }     // 0 = Ongoing, 1 = Completed, 2 = Cancelled
     val tabs = listOf("Ongoing", "Completed", "Cancelled")
 
@@ -61,6 +67,20 @@ fun BookingScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         AppIconArrowBack()
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        viewModel.create(
+                            vehicle = 2L,
+                            parking = 1L,
+                            spot = 0L,
+                            start = 10,
+                            end = 20L,
+                            expectedPriceCents = null
+                        )
+                    }) {
+                        AppIconAdd()
                     }
                 }
             )
@@ -103,17 +123,26 @@ fun BookingScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(bookings, key = { it.title }) { booking ->
-                    BookingCard(
-                        booking = booking,
-                        onRebook = { /* TODO: action rebook */ },
-                        onETicket = { /* TODO: action eticket */ }
-                    )
+            when (reservationState) {
+                UiState.Loading -> {}
+                is UiState.Idle -> {}
+                is UiState.Error -> {
+                    val error = (actionState as UiState.Error).message
+                    Log.d("BookingScreen", "ReservationState ERROR: $error")
                 }
+                is UiState.Success<*> -> {
+                    val data = (actionState as UiState.Success<*>).items
+                    val summary = data as? ReservationSummary
+
+                    if (summary != null) {
+                        BookingCard(
+                            summary = summary,
+                            onRebook = {},
+                            onETicket = {}
+                        )
+                    }
+                }
+                else -> {}
             }
         }
     }

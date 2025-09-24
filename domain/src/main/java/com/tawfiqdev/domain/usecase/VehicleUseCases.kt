@@ -1,6 +1,7 @@
 package com.tawfiqdev.domain.usecase
 
 import com.tawfiqdev.domain.model.Vehicle
+import com.tawfiqdev.domain.repository.ParkingRepository
 import com.tawfiqdev.domain.repository.VehicleRepository
 import com.tawfiqdev.domain.utils.Error
 import com.tawfiqdev.domain.utils.ResultOutput
@@ -16,21 +17,25 @@ class GetVehicleByIdUseCase(private val repository: VehicleRepository) {
 }
 
 class InsertVehicleUseCase (private val repository: VehicleRepository) {
-    suspend operator fun invoke(input: Vehicle): ResultOutput<Unit, com.tawfiqdev.domain.utils.Error> {
+    suspend operator fun invoke(input: Vehicle): ResultOutput<Unit, Error> {
         if (input.registrationPlate.isBlank()){
-            return ResultOutput.Failure(com.tawfiqdev.domain.utils.Error.Validation("Plaque vide"))
+            return ResultOutput.Failure(Error.Validation("Plaque vide"))
         }
         if (input.model.isBlank()){
-            return ResultOutput.Failure(com.tawfiqdev.domain.utils.Error.Validation("Marque vide"))
+            return ResultOutput.Failure(Error.Validation("Marque vide"))
         }
         if (input.model.isBlank()){
-            return ResultOutput.Failure(com.tawfiqdev.domain.utils.Error.Validation("Modèle vide"))
+            return ResultOutput.Failure(Error.Validation("Modèle vide"))
         }
         if (input.siege <= 0){
             return ResultOutput.Failure(Error.Validation("Nombre de places invalide"))
         }
         return repository.insert(input.copy(id = 0))
     }
+}
+
+class SeedVehicleIfEmptyUseCase(private val repository: VehicleRepository) {
+    suspend operator fun invoke() = repository.seedIfEmpty()
 }
 
 class UpdateVehicleUseCase (private val repository: VehicleRepository) {
