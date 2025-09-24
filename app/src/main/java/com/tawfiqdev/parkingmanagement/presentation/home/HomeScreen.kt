@@ -1,7 +1,6 @@
 package com.tawfiqdev.parkingmanagement.presentation.home
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,8 +49,7 @@ import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.parkingmanagement.R
-import com.tawfiqdev.parkingmanagement.domain.model.Parking
-import com.tawfiqdev.parkingmanagement.domain.model.Vehicle
+import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 

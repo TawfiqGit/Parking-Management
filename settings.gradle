@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 rootProject.name = "Parking Management"
 include ':app'
 include ':design-system'
+include ':data'
+include ':domain'

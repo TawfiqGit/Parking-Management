@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.tawfiqdev.parkingmanagement.presentation.navigation.MainScreen
-import com.tawfiqdev.parkingmanagement.presentation.navigation.viewmodel.SplashViewModel
+import com.tawfiqdev.parkingmanagement.navigation.MainScreen
+import com.tawfiqdev.parkingmanagement.presentation.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
