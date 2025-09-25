@@ -20,7 +20,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val observePopularParking : ObservePopularParkingUseCase,
-    private val seed: SeedParkingIfEmptyUseCase,
 ) : ViewModel() {
 
     private val _popularParkingState = MutableStateFlow<UiState>(UiState.Loading)
@@ -28,7 +27,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         observeParking()
-        seedParking()
     }
 
     private fun observeParking() {
@@ -45,17 +43,6 @@ class HomeViewModel @Inject constructor(
                     }
                 }
                 .collect()
-        }
-    }
-
-    fun seedParking() = viewModelScope.launch {
-        when (val res = seed()) {
-            is ResultOutput.Success -> {
-                // OK : res.value = nb insérés (0 si déjà peuplé)
-            }
-            is ResultOutput.Failure -> {
-                // Log/telemetry/UI : res.error (DomainError)
-            }
         }
     }
 }
