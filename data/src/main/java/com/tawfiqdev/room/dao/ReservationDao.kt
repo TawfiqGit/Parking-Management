@@ -8,7 +8,9 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.tawfiqdev.enums.StatusRez
+import com.tawfiqdev.room.entity.ParkingSpotEntity
 import com.tawfiqdev.room.entity.ReservationEntity
+import com.tawfiqdev.room.entity.ReservationFull
 import kotlinx.coroutines.flow.Flow
 
 @Dao
