@@ -3,8 +3,8 @@ package com.tawfiqdev.repository
 import com.tawfiqdev.mapper.toDomain
 import com.tawfiqdev.mapper.toEntity
 import com.tawfiqdev.model.Vehicle
-import com.tawfiqdev.room.dao.VehicleDao
-import com.tawfiqdev.room.entity.VehicleEntity
+import com.tawfiqdev.database.dao.VehicleDao
+import com.tawfiqdev.database.entity.VehicleEntity
 import com.tawfiqdev.utils.ErrorState
 import com.tawfiqdev.utils.ResultOutput
 import kotlinx.coroutines.flow.Flow

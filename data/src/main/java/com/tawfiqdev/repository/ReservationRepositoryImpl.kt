@@ -1,11 +1,8 @@
 package com.tawfiqdev.repository
 
-import com.tawfiqdev.enums.StatusRez
-import com.tawfiqdev.room.db.ParkingMgmtDatabase
-import com.tawfiqdev.room.entity.ReservationEntity
-import com.tawfiqdev.room.entity.VehicleEntity
+import com.tawfiqdev.database.ParkingMgmtDatabase
+import com.tawfiqdev.database.entity.VehicleEntity
 import kotlinx.coroutines.flow.Flow
-import java.time.Instant
 import javax.inject.Inject
 
 /***
@@ -19,22 +16,4 @@ class ReservationRepositoryImpl @Inject constructor(
     override fun allVehicles(): Flow<List<VehicleEntity>> = database.vehicleDao().observeAllCar()
 
     override suspend fun addVehicle(vehicle: VehicleEntity): Long = database.vehicleDao().insert(vehicle)
-
-    override suspend fun createReservationSafe(
-        vehicleId: Long,
-        userId: Long,
-        start: Instant,
-        end: Instant,
-        notes: String?
-    ): Long {
-        val reservation = ReservationEntity(
-            vehicleId = vehicleId,
-            userId = userId,
-            startTime = start,
-            endTime = end,
-            statusRes = StatusRez.CONFIRMED,
-            notes = notes
-        )
-        return database.reservationDao().insert(reservation)
-    }
 }

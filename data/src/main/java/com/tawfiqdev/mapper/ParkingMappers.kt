@@ -1,7 +1,7 @@
 package com.tawfiqdev.mapper
 
 import com.tawfiqdev.model.Parking
-import com.tawfiqdev.room.entity.ParkingEntity
+import com.tawfiqdev.database.entity.ParkingEntity
 
 fun ParkingEntity.toDomain(): Parking = Parking(
     id = id,

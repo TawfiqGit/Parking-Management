@@ -19,14 +19,11 @@ class InsertVehicleUseCase (private val repository: VehicleRepository) {
         if (input.registrationPlate.isBlank()){
             return ResultOutput.Failure(ErrorState.Validation("Plaque vide"))
         }
-        if (input.model.isBlank()){
+        if (input.brand!!.isBlank()){
             return ResultOutput.Failure(ErrorState.Validation("Marque vide"))
         }
-        if (input.model.isBlank()){
+        if (input.model!!.isBlank()){
             return ResultOutput.Failure(ErrorState.Validation("Modèle vide"))
-        }
-        if (input.siege <= 0){
-            return ResultOutput.Failure(ErrorState.Validation("Nombre de places invalide"))
         }
         return repository.insert(input.copy(id = 0))
     }

@@ -1,8 +1,7 @@
 package com.tawfiqdev.repository
 
-import com.tawfiqdev.room.entity.VehicleEntity
+import com.tawfiqdev.database.entity.VehicleEntity
 import kotlinx.coroutines.flow.Flow
-import java.time.Instant
 
 /**
  * Abstraction du DAO
@@ -14,12 +13,4 @@ interface ReservationRepository {
     fun allVehicles(): Flow<List<VehicleEntity>>
 
     suspend fun addVehicle(vehicle: VehicleEntity): Long
-
-    suspend fun createReservationSafe(
-        vehicleId: Long,
-        userId : Long,
-        start: Instant,
-        end: Instant,
-        notes: String? = null
-    ): Long
 }
