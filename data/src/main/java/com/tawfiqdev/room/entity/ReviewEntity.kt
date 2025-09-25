@@ -7,22 +7,28 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "vehicles",
+    tableName = "reviews",
     foreignKeys = [
         ForeignKey(
             entity = UserEntity::class,
             parentColumns = ["id"],
             childColumns = ["user_id"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = ParkingEntity::class,
+            parentColumns = ["id"],
+            childColumns = ["parking_id"],
+            onDelete = ForeignKey.RESTRICT
         )
     ],
-    indices = [Index("user_id"), Index(value = ["registration_plate"], unique = true)]
+    indices = [Index("parking_id"), Index("user_id")]
 )
-data class VehicleEntity(
+data class ReviewEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "user_id") val userId: Long,
-    @ColumnInfo(name = "registration_plate") val registrationPlate: String,
-    @ColumnInfo(name = "brand") val brand: String?,
-    @ColumnInfo(name = "model") val model: String?,
-    @ColumnInfo(name = "color") val color: String?
+    @ColumnInfo(name = "parking_id") val parkingId: Long,
+    @ColumnInfo(name = "created_at") val createdAt: Long,
+    val rating: Int,           // 1..5 (enforce côté code)
+    val comment: String?,
 )
