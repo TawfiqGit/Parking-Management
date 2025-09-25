@@ -1,4 +1,4 @@
-package com.tawfiqdev.room.entity
+package com.tawfiqdev.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.tawfiqdev.enums.Category
 
 @Entity(
-    tableName = "parkings" ,
+    tableName = "parking" ,
     indices = [Index(value = ["name"], unique = true)]
 )
 data class ParkingEntity(

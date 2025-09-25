@@ -1,11 +1,11 @@
-package com.tawfiqdev.room.dao
+package com.tawfiqdev.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.tawfiqdev.room.entity.LocationEntity
-import com.tawfiqdev.room.entity.RecentLocationEntity
+import com.tawfiqdev.database.entity.LocationEntity
+import com.tawfiqdev.database.entity.RecentLocationEntity
 
 @Dao
 interface LocationDao {

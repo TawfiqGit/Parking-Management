@@ -1,4 +1,4 @@
-package com.tawfiqdev.room.entity
+package com.tawfiqdev.database.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
