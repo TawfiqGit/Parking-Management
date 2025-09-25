@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.tawfiqdev.parkingmanagement.navigation.MainScreen
+import com.tawfiqdev.parkingmanagement.navigation.NavHostScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainScreen(isReadyFlow = splashViewModel.isReady)
+            NavHostScreen(isReadyFlow = splashViewModel.isReady)
         }
     }
 }

@@ -28,7 +28,7 @@ import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun MainScreen(
+fun NavHostScreen(
     isReadyFlow: StateFlow<Boolean>
 ) {
     val navController = rememberNavController()
