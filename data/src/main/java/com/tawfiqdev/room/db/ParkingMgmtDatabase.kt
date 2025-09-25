@@ -4,9 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.tawfiqdev.converts.Converters
+import com.tawfiqdev.room.dao.EntryExitDao
+import com.tawfiqdev.room.dao.FavoriteDao
 import com.tawfiqdev.room.dao.LocationDao
 import com.tawfiqdev.room.dao.ParkingDao
+import com.tawfiqdev.room.dao.PaymentDao
 import com.tawfiqdev.room.dao.ReservationDao
+import com.tawfiqdev.room.dao.ReviewDao
 import com.tawfiqdev.room.dao.UserDao
 import com.tawfiqdev.room.dao.VehicleDao
 import com.tawfiqdev.room.entity.EntryExitLogEntity
@@ -50,4 +54,8 @@ abstract class ParkingMgmtDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun parkingDao(): ParkingDao
     abstract fun locationDao(): LocationDao
+    abstract fun reviewDao(): ReviewDao
+    abstract fun paymentDao(): PaymentDao
+    abstract fun entryExitDao(): EntryExitDao
+    abstract fun favoriteParkingDao(): FavoriteDao
 }

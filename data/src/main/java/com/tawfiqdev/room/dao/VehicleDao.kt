@@ -20,15 +20,12 @@ interface VehicleDao {
     @Delete
     suspend fun delete(vehicleEntity: VehicleEntity)
 
-    @Query("UPDATE vehicle SET status = :statusCar WHERE id = :id")
-    suspend fun updateStatus(id: Long, statusCar: StatusCar)
-
-    @Query("SELECT * FROM vehicle")
+    @Query("SELECT * FROM vehicles")
     fun observeAllCar(): Flow<List<VehicleEntity>>
 
-    @Query("SELECT * FROM vehicle WHERE id = :id")
+    @Query("SELECT * FROM vehicles WHERE id = :id")
     fun observeCarById(id: Long): Flow<VehicleEntity>
 
-    @Query("SELECT * FROM vehicle ORDER BY brand, model")
+    @Query("SELECT * FROM vehicles ORDER BY brand, model")
     fun observeCarByModel(): Flow<List<VehicleEntity>>
 }
