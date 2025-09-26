@@ -1,10 +1,12 @@
 package com.tawfiqdev.parkingmanagement.presentation.booking
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -15,9 +17,15 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -41,14 +50,15 @@ import com.tawfiqdev.model.Booking
 @Composable
 fun BookingCard(
     booking: Booking,
+    highlight: Color,
+    showETicket: Boolean,
+    wideRebook: Boolean,
     onRebook: () -> Unit,
-    onETicket: () -> Unit,
-    modifier: Modifier = Modifier
+    onETicket: () -> Unit
 ) {
     ElevatedCard(
-        shape = SmallLargeRoundedCornerShape,
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 1.dp),
-        modifier = modifier
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 1.dp)
     ) {
         Column(Modifier.padding(16.dp)) {
             Row(
@@ -61,131 +71,133 @@ fun BookingCard(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxHeight()
-                        .width(96.dp)
-                        .clip(MediumRoundedCornerShape)
+                        .width(110.dp)
+                        .clip(RoundedCornerShape(16.dp))
                 )
 
                 Spacer(Modifier.width(12.dp))
 
                 Column(Modifier.weight(1f)) {
-                    CategoryChip(category = booking.category)
-
-                    Spacer(Modifier.height(2.dp))
-
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = booking.title,
-                            color = AppColor.GreenRacing,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp,
-                            maxLines = 1,
-                        )
-                        Spacer(Modifier.width(6.dp))
-                        RatingPill(rating = booking.rating)
-                    }
-
-                    Spacer(Modifier.height(2.dp))
-
-                    LocationRow(city = booking.city)
+                    CategoryChip(booking.categoryLabel)
 
                     Spacer(Modifier.height(6.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        AppText(
-                            text = booking.pricePerHour,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = AppColor.GreenRacing
+                        Text(
+                            text = booking.name,
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f)
                         )
-                        AppText(modifier = Modifier.padding(top = 3.dp), text = " /hr", color = AppColor.GreenRacing)
+                        Spacer(Modifier.width(8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = null,
+                                tint = Color(0xFFFFB300), // star gold
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                text = String.format("%.1f", booking.rating),
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                        }
+                    }
+
+                    Spacer(Modifier.height(6.dp))
+
+                    // Location
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.LocationOn,
+                            contentDescription = null,
+                            tint = LocalContentColor.current.copy(alpha = 0.6f),
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Text(
+                            text = "${booking.city}, ${booking.country}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = LocalContentColor.current.copy(alpha = 0.7f),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
+
+                    Spacer(Modifier.height(8.dp))
+
+                    // Price
+                    Row(verticalAlignment = Alignment.Bottom) {
+                        Text(
+                            text = "$${String.format("%.2f", booking.pricePerHour)}",
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                color = highlight,
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        Spacer(Modifier.width(4.dp))
+                        Text(
+                            text = "/hr",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = LocalContentColor.current.copy(alpha = 0.7f)
+                        )
                     }
                 }
             }
 
             Spacer(Modifier.height(14.dp))
 
-            Row {
-                AppOutlinedButton(
+            if (wideRebook) {
+                // Cancelled → bouton Re-Book plein largeur
+                Button(
+                    onClick = onRebook,
                     modifier = Modifier
-                        .weight(1f)
+                        .fillMaxWidth()
                         .height(48.dp),
-                    text = "Re-Book",
-                    shape = RoundedCornerShape(28.dp),
-                    onClick = onRebook
-                )
+                    shape = RoundedCornerShape(16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = highlight)
+                ) {
+                    Text("Re-Book")
+                }
+            } else {
+                // Ongoing/Completed → 2 boutons
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedButton(
+                        onClick = onRebook,
+                        modifier = Modifier.weight(1f).height(48.dp),
+                        shape = RoundedCornerShape(16.dp)
+                    ) { Text("Re-Book") }
 
-                Spacer(Modifier.width(12.dp))
-
-                AppButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(48.dp),
-                    text = "E-Ticket",
-                    shape = RoundedCornerShape(28.dp),
-                    onClick = onETicket
-                )
+                    if (showETicket) {
+                        Button(
+                            onClick = onETicket,
+                            modifier = Modifier.weight(1f).height(48.dp),
+                            shape = RoundedCornerShape(16.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = highlight)
+                        ) { Text("E-Ticket") }
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-fun RatingPill(rating: Double) {
-    AssistChip(
-        onClick = {},
-        label = {
-            AppText(
-                text = String.format("%.1f", rating),
-                color = AppColor.Black
-            )
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = Icons.Filled.Star,
-                contentDescription = null,
-                tint = AppColor.RoseSpanish
-            )
-        },
-        colors = AssistChipDefaults.assistChipColors(
-            containerColor = AppColor.RoseSeaShell.copy(alpha = 0.35f)
-        ),
-        border = AssistChipDefaults.assistChipBorder(enabled = true , borderColor = Color.Transparent),
-        shape = SmallMediumRoundedCornerShape
-    )
-}
-
-@Composable
-fun CategoryChip(category : String) {
-    AssistChip(
-        onClick = {},
-        label = {
-            AppText(
-                text = category,
-                color = AppColor.GreenRacing,
-                fontSize = 12.sp
-            )
-        },
-        colors = AssistChipDefaults.assistChipColors(
-            containerColor = AppColor.GreenRacing.copy(alpha = 0.12f),
-            labelColor = AppColor.GreenRacing
-        ),
-        border = AssistChipDefaults.assistChipBorder(enabled = true , borderColor = Color.Transparent)
-    )
-}
-
-@Composable
-fun LocationRow(city: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(
-            imageVector = Icons.Default.LocationOn,
-            contentDescription = null,
-            tint = AppColor.GreyDark.copy(alpha = 0.6f),
-            modifier = Modifier.size(18.dp)
-        )
-        Spacer(Modifier.width(6.dp))
-        AppText(
-            text = city,
-            color = AppColor.GreyDark.copy(alpha = 0.7f)
+private fun CategoryChip(text: String) {
+    Surface(
+        shape = RoundedCornerShape(12.dp),
+        color = Color(0xFFF0EEFF),
+        contentColor = Color(0xFF6E57FF)
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelMedium,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
         )
     }
 }

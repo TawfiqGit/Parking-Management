@@ -1,5 +1,6 @@
 package com.tawfiqdev.parkingmanagement.presentation.booking
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,19 +23,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.tawfiqdev.design_system.components.AppIconAdd
 import com.tawfiqdev.design_system.components.AppIconArrowBack
 import com.tawfiqdev.design_system.components.AppText
 import com.tawfiqdev.design_system.theme.AppColor
+import com.tawfiqdev.enums.BookingStatus
 import com.tawfiqdev.model.Booking
 import com.tawfiqdev.parkingmanagement.presentation.booking.viewmodel.BookingViewModel
 
@@ -42,18 +48,16 @@ import com.tawfiqdev.parkingmanagement.presentation.booking.viewmodel.BookingVie
 @Composable
 fun BookingScreen(
     navController: NavController,
-    viewModel: BookingViewModel = hiltViewModel()
+    ongoing: List<Booking> = emptyList(),
+    completed: List<Booking> = emptyList(),
+    cancelled: List<Booking> = emptyList(),
+    onBack: () -> Unit = {},
+    onRebook: (Booking) -> Unit = {},
+    onETicket: (Booking) -> Unit= {}
 ) {
-    var selectedTab by rememberSaveable { mutableIntStateOf(1) }     // 0 = Ongoing, 1 = Completed, 2 = Cancelled
+    var tab by remember { mutableIntStateOf(1) } // 0=Ongoing, 1=Completed (comme la capture), 2=Cancelled
     val tabs = listOf("Ongoing", "Completed", "Cancelled")
-
-    val bookings = remember {
-        listOf(
-            Booking("ParkWise Ventures", "Paris", "France", "$5.00", 4.9, imageUrl = "https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=1200"),
-            Booking("AutoNest Spaces", "New York", "USA", "$8.00", 4.8, imageUrl = "https://images.unsplash.com/photo-1532974297617-c0f05fe48bff?q=80&w=1200"),
-            Booking("AutoCare Park", "Chennai", "India", "$6.00", 4.7, imageUrl = "https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=1200"),
-        )
-    }
+    val viewModel = hiltViewModel<BookingViewModel>()
 
     Scaffold(
         topBar = {
@@ -71,6 +75,11 @@ fun BookingScreen(
                     IconButton(onClick = { navController.popBackStack() }) {
                         AppIconArrowBack()
                     }
+                },
+                actions = {
+                    IconButton(onClick = { /* TODO: action filter */ }) {
+                        AppIconAdd()
+                    }
                 }
             )
         }
@@ -81,12 +90,12 @@ fun BookingScreen(
                 .fillMaxSize()
         ) {
             TabRow(
-                selectedTabIndex = selectedTab,
+                selectedTabIndex = tab,
                 containerColor = MaterialTheme.colorScheme.surface,
                 contentColor  = AppColor.Black,
                 indicator = { tabPositions ->
                     TabRowDefaults.Indicator(
-                        modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTab]),
+                        modifier = Modifier.tabIndicatorOffset(tabPositions[tab]),
                         color = AppColor.GreenRacing,
                         height = 3.dp
                     )
@@ -95,35 +104,76 @@ fun BookingScreen(
             ) {
                 tabs.forEachIndexed { i, label ->
                     Tab(
-                        selected = selectedTab == i,
-                        onClick = { selectedTab = i },
+                        selected = tab == i,
+                        onClick = { tab = i },
                         selectedContentColor   = AppColor.GreenRacing,
                         unselectedContentColor = AppColor.Black.copy(alpha = 0.6f),
                         text = {
                             Text(
                                 text = label,
                                 fontSize = 14.sp,
-                                fontWeight = if (selectedTab == i) FontWeight.SemiBold else FontWeight.Normal
+                                fontWeight = if (tab == i) FontWeight.SemiBold else FontWeight.Normal
                             )
                         }
                     )
                 }
             }
-
             Spacer(modifier = Modifier.height(12.dp))
 
-            LazyColumn(
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(bookings, key = { it.title }) { booking ->
-                    BookingCard(
-                        booking = booking,
-                        onRebook = { /* TODO: action rebook */ },
-                        onETicket = { /* TODO: action eticket */ }
+            Crossfade(targetState = tab, label = "tabs") { t ->
+                when (t) {
+                    0 -> BookingList(
+                        items = ongoing,
+                        purple = AppColor.GreenRacing,
+                        showETicket = true,
+                        wideRebook = false,
+                        onRebook = onRebook,
+                        onETicket = onETicket
+                    )
+                    1 -> BookingList(
+                        items = completed,
+                        purple = AppColor.GreenRacing,
+                        showETicket = true,
+                        wideRebook = false,
+                        onRebook = onRebook,
+                        onETicket = onETicket
+                    )
+                    2 -> BookingList(
+                        items = cancelled,
+                        purple = AppColor.GreenRacing,
+                        showETicket = false,
+                        wideRebook = true,
+                        onRebook = onRebook,
+                        onETicket = onETicket
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun BookingList(
+    items: List<Booking>,
+    purple: Color,
+    showETicket: Boolean,
+    wideRebook: Boolean,
+    onRebook: (Booking) -> Unit,
+    onETicket: (Booking) -> Unit
+) {
+    LazyColumn(
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        items(items, key = { it.id }) { item ->
+            BookingCard(
+                booking = item,
+                highlight = purple,
+                showETicket = showETicket,
+                wideRebook = wideRebook,
+                onRebook = { onRebook(item) },
+                onETicket = { onETicket(item) }
+            )
         }
     }
 }

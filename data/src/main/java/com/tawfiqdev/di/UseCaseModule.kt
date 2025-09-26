@@ -2,9 +2,13 @@ package com.tawfiqdev.di
 
 import com.tawfiqdev.repository.LocationRepository
 import com.tawfiqdev.repository.ParkingRepository
+import com.tawfiqdev.repository.UserRepository
 import com.tawfiqdev.repository.VehicleRepository
+import com.tawfiqdev.usecase.DeleteUserUseCase
 import com.tawfiqdev.usecase.FlowAllVehicleUseCase
+import com.tawfiqdev.usecase.GetUserByIdUseCase
 import com.tawfiqdev.usecase.GetVehicleByIdUseCase
+import com.tawfiqdev.usecase.InsertUserUseCase
 import com.tawfiqdev.usecase.InsertVehicleUseCase
 import com.tawfiqdev.usecase.MarkAsRecentUseCase
 import com.tawfiqdev.usecase.ObservePopularParkingUseCase
@@ -12,6 +16,7 @@ import com.tawfiqdev.usecase.RecentsUseCase
 import com.tawfiqdev.usecase.ResultsUseCase
 import com.tawfiqdev.usecase.SeedParkingIfEmptyUseCase
 import com.tawfiqdev.usecase.SuggestionsUseCase
+import com.tawfiqdev.usecase.UpdateUserUseCase
 import com.tawfiqdev.usecase.UpdateVehicleUseCase
 import dagger.Module
 import dagger.Provides
@@ -74,4 +79,26 @@ object UseCaseModule {
     fun provideUpdateVehicleUseCase(
         repo: VehicleRepository
     ) = UpdateVehicleUseCase(repo)
+
+    /**--UserRepository--**/
+
+    @Provides
+    fun provideGetUserByIdUseCase(
+        repo: UserRepository
+    ) = GetUserByIdUseCase(repo)
+
+    @Provides
+    fun provideInsertUserUseCase(
+        repo: UserRepository
+    ) = InsertUserUseCase(repo)
+
+    @Provides
+    fun provideUpdateUserUseCase(
+        repo: UserRepository
+    ) = UpdateUserUseCase(repo)
+
+    @Provides
+    fun provideDeleteUserUseCase(
+        repo: UserRepository
+    ) = DeleteUserUseCase(repo)
 }
