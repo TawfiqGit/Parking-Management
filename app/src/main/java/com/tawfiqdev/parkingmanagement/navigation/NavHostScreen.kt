@@ -25,7 +25,7 @@ import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
 import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
-import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
+import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
 
@@ -91,7 +91,7 @@ fun NavHostScreen(
             composable(Routes.Home) { HomeScreen(navController = navController) }
             composable(Routes.Booking) { BookingScreen(navController = navController) }
             composable(Routes.History) { HistoryPage() }
-            composable(Routes.Setting) { SettingPage() }
+            composable(Routes.Setting) { SettingScreen (navController = navController) }
 
             composable(Routes.SelectLocation) {
                 SelectLocationScreen(

@@ -1,7 +1,21 @@
 package com.tawfiqdev.design_system.icone
 
+import android.graphics.drawable.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import com.tawfiqdev.design_system.R
 
@@ -23,6 +37,10 @@ object AppIcons {
         @Composable
         get() = painterResource(id = R.drawable.calendar_icon)
 
+    val ArrowRight: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Outlined.KeyboardArrowRight)
+
     val EventIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.event_icon)
@@ -35,10 +53,6 @@ object AppIcons {
         @Composable
         get() = painterResource(id = R.drawable.add_icon)
 
-    val DeleteIcon: Painter
-        @Composable
-        get() = painterResource(id = R.drawable.delete_icon)
-
     val VehicleIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.vehicle)
@@ -50,10 +64,6 @@ object AppIcons {
     val LocationSelectedIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.location)
-
-    val NotificationIcon: Painter
-        @Composable
-        get() = painterResource(id = R.drawable.notif_icon)
 
     val FavoriteBorder: Painter
         @Composable
@@ -70,4 +80,41 @@ object AppIcons {
     val StartIcon: Painter
         @Composable
         get() = painterResource(id = R.drawable.star_icon)
+
+    val ProfileIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Default.Person)
+
+    val ProfileOutlinedIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Outlined.Person)
+
+    val NotificationIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Outlined.Notifications)
+
+    val LanguageIcon: Painter
+        @Composable
+        get() = painterResource(R.drawable.translate_icon)
+
+    val LocationOutlinedIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Outlined.LocationOn)
+
+    val DeleteOutlinedIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Outlined.Delete)
+
+    val DeleteIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Default.Delete)
+
+    val ModeIcon: Painter
+        @Composable
+        get() = painterResource(R.drawable.dark_mode_icon)
+
+    val EditIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Default.Edit)
+
 }

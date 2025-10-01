@@ -33,9 +33,6 @@
       <SelectionState runConfigName="SmallRoundedCornerShapeButton">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="BookingListPreview_Completed_Cancelled">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
     </selectionStates>
   </component>
 </project>

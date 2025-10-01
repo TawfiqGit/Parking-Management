@@ -24,6 +24,10 @@ val Baseline4: Dp
     @Composable
     get() = 12.dp
 
+val Baseline4_5: Dp
+    @Composable
+    get() = 14.dp
+
 val Baseline5: Dp
     @Composable
     get() = 16.dp
