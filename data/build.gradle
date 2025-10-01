@@ -46,4 +46,5 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     kapt(libs.hilt.android)
     kapt(libs.hilt.compiler)
+    implementation "org.jetbrains.kotlin:kotlin-test:2.2.10"
 }

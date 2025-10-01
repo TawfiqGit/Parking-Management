@@ -32,7 +32,7 @@ abstract class RepositoryModule {
     abstract fun bindLocationRepository(impl: LocationRepositoryImpl): LocationRepository
 
     @Binds
-    @Singleton
+    @Singleton()
     abstract fun bindReservationRepository(impl: ReservationRepositoryImpl): ReservationRepository
 
     @Binds

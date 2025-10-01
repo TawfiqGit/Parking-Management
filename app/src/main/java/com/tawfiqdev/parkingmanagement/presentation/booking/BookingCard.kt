@@ -1,5 +1,6 @@
 package com.tawfiqdev.parkingmanagement.presentation.booking
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -15,8 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
@@ -36,20 +35,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.tawfiqdev.design_system.components.AppButton
-import com.tawfiqdev.design_system.components.AppOutlinedButton
-import com.tawfiqdev.design_system.components.AppText
-import com.tawfiqdev.design_system.theme.AppColor
-import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
-import com.tawfiqdev.design_system.theme.SmallLargeRoundedCornerShape
-import com.tawfiqdev.design_system.theme.SmallMediumRoundedCornerShape
-import com.tawfiqdev.model.Booking
+import com.tawfiqdev.model.Reservation
+import com.tawfiqdev.model.ReservationDetails
 
 @Composable
 fun BookingCard(
-    booking: Booking,
+    reservationDetails: ReservationDetails,
     highlight: Color,
     showETicket: Boolean,
     wideRebook: Boolean,
@@ -66,7 +58,7 @@ fun BookingCard(
                 modifier = Modifier.height(IntrinsicSize.Min)
             ) {
                 AsyncImage(
-                    model = booking.imageUrl,
+                    model = reservationDetails.parking.imageUrl,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
@@ -78,19 +70,20 @@ fun BookingCard(
                 Spacer(Modifier.width(12.dp))
 
                 Column(Modifier.weight(1f)) {
-                    CategoryChip(booking.categoryLabel)
+                    CategoryChip(reservationDetails.parking.category.name)
 
                     Spacer(Modifier.height(6.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = booking.name,
+                            text = reservationDetails.parking.name,
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f)
                         )
                         Spacer(Modifier.width(8.dp))
+
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
                                 imageVector = Icons.Default.Star,
@@ -100,7 +93,7 @@ fun BookingCard(
                             )
                             Spacer(Modifier.width(4.dp))
                             Text(
-                                text = String.format("%.1f", booking.rating),
+                                text = String.format("%.1f", reservationDetails.parking.rating),
                                 style = MaterialTheme.typography.labelMedium
                             )
                         }
@@ -118,7 +111,7 @@ fun BookingCard(
                         )
                         Spacer(Modifier.width(4.dp))
                         Text(
-                            text = "${booking.city}, ${booking.country}",
+                            text = "${reservationDetails.spot}, ${reservationDetails.user}",
                             style = MaterialTheme.typography.bodySmall,
                             color = LocalContentColor.current.copy(alpha = 0.7f),
                             maxLines = 1,
@@ -131,7 +124,7 @@ fun BookingCard(
                     // Price
                     Row(verticalAlignment = Alignment.Bottom) {
                         Text(
-                            text = "$${String.format("%.2f", booking.pricePerHour)}",
+                            text = "$${String.format("%.2f", reservationDetails.payments)}",
                             style = MaterialTheme.typography.titleMedium.copy(
                                 color = highlight,
                                 fontWeight = FontWeight.Bold
