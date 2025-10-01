@@ -33,7 +33,7 @@
       <SelectionState runConfigName="SmallRoundedCornerShapeButton">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="AppButton">
+      <SelectionState runConfigName="BookingListPreview_Completed_Cancelled">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

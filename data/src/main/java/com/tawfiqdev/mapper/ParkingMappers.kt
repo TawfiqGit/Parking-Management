@@ -2,6 +2,8 @@ package com.tawfiqdev.mapper
 
 import com.tawfiqdev.model.Parking
 import com.tawfiqdev.database.entity.ParkingEntity
+import com.tawfiqdev.database.entity.ParkingSpotEntity
+import com.tawfiqdev.model.ParkingSpot
 
 fun ParkingEntity.toDomain(): Parking = Parking(
     id = id,
@@ -25,4 +27,12 @@ fun Parking.toEntity(): ParkingEntity = ParkingEntity(
     spots=spots,
     imageRes= imageRes,
     imageUrl = imageUrl
+)
+
+fun ParkingSpotEntity.toDomain() = ParkingSpot(
+    id = id,
+    parkingId = parkingId,
+    spotNumber = spotNumber,
+    type = type,
+    isActive = isActive
 )

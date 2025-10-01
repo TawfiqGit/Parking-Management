@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,15 +26,17 @@ import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
 import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingPage
+import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun MainScreen(
+fun NavHostScreen(
     isReadyFlow: StateFlow<Boolean>
 ) {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     val currentRoute = currentDestination?.route
+    val viewModel = hiltViewModel() as MainViewModel
 
     val navItems = listOf(
         NavItem("Home", Icons.Default.Home, Routes.Home),

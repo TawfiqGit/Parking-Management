@@ -3,7 +3,7 @@ package com.tawfiqdev.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.tawfiqdev.database.converts.Converters
+import com.tawfiqdev.database.Converters
 import com.tawfiqdev.database.dao.EntryExitDao
 import com.tawfiqdev.database.dao.FavoriteDao
 import com.tawfiqdev.database.dao.LocationDao
