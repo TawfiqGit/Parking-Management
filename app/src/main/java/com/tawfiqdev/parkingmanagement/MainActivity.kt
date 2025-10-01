@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.tawfiqdev.parkingmanagement.navigation.NavHostScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.SplashViewModel
+import com.tawfiqdev.parkingmanagement.presentation.utils.PreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

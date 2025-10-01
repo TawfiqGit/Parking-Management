@@ -87,7 +87,7 @@ fun SettingScreen(
         ),
         ProfileOption(
             icon = AppIcons.ModeIcon,
-            title = "Nigh Mode",
+            title = "Night Mode",
             onClick = onModeNightClick
         ),
         ProfileOption(

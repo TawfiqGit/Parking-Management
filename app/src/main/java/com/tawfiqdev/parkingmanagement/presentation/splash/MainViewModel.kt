@@ -10,7 +10,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val generateParking : SeedParkingIfEmptyUseCase,
-
 ) : ViewModel() {
 
     init {
@@ -18,7 +17,4 @@ class MainViewModel @Inject constructor(
             generateParking()
         }
     }
-
-
-
 }
