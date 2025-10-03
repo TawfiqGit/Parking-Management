@@ -45,23 +45,6 @@ fun NavHostScreen(
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     val currentRoute = currentDestination?.route
     val viewModel = hiltViewModel() as MainViewModel
-    var isNightMode by rememberSaveable {
-        mutableStateOf(
-            value = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
-        )
-    }
-    val toggleNightMode = {
-        val enableNightMode = !isNightMode
-        isNightMode = enableNightMode
-        AppCompatDelegate.setDefaultNightMode(
-            if (enableNightMode) AppCompatDelegate.MODE_NIGHT_YES
-            else {
-                AppCompatDelegate.MODE_NIGHT_NO
-            }
-        )
-    }
-    Log.d("NavHostScreen", "isNightMode: $isNightMode")
-    Log.d("NavHostScreen", "getDefaultNightMode: ${AppCompatDelegate.getDefaultNightMode()}")
 
     val navItems = listOf(
         NavItem("Home", Icons.Default.Home, Routes.Home),
@@ -116,12 +99,7 @@ fun NavHostScreen(
             composable(Routes.Home) { HomeScreen(navController = navController) }
             composable(Routes.Booking) { BookingScreen(navController = navController) }
             composable(Routes.History) { HistoryPage() }
-            composable(Routes.Setting) {
-                SettingScreen (
-                    navController = navController,
-                    onModeNightClick = toggleNightMode
-                )
-            }
+            composable(Routes.Setting) { SettingScreen (navController = navController,) }
             composable(Routes.SelectLocation) {
                 SelectLocationScreen(
                     onBack = { navController.popBackStack() },

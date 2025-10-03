@@ -3,6 +3,9 @@ package com.tawfiqdev.design_system.theme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
 
+val AppShapes
+    get() = androidx.compose.material3.Shapes()
+
 val ExtraSmallRoundedCornerShape
     get() = RoundedCornerShape(4.dp)
 

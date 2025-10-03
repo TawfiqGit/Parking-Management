@@ -1,5 +1,7 @@
 package com.tawfiqdev.parkingmanagement.presentation.setting
 
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,8 +27,14 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,7 +54,6 @@ import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
 import com.tawfiqdev.design_system.utils.Baseline0
-import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline4_5
 import com.tawfiqdev.design_system.utils.Baseline5
@@ -54,7 +61,7 @@ import com.tawfiqdev.design_system.utils.Baseline5
 data class ProfileOption(
     val icon: Painter,
     val title: String,
-    val onClick: () -> Unit
+    val onClick: () -> Unit? = {}
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,7 +71,6 @@ fun SettingScreen(
     onEditClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
     onLanguageClick: () -> Unit = {},
-    onModeNightClick: () -> Unit = {},
     onNotificationClick: () -> Unit = {},
     onLocalisationClick: () -> Unit = {},
     onLogOutClick: () -> Unit = {}
@@ -88,7 +94,6 @@ fun SettingScreen(
         ProfileOption(
             icon = AppIcons.ModeIcon,
             title = "Night Mode",
-            onClick = onModeNightClick
         ),
         ProfileOption(
             icon = AppIcons.LocationOutlinedIcon,
@@ -103,6 +108,7 @@ fun SettingScreen(
     )
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -127,11 +133,10 @@ fun SettingScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(Baseline5)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             ProfileHeader(onEditClick = onEditClick)
-
             Spacer(Modifier.height(24.dp))
-
             ProfileOptionsCard(items)
         }
     }
@@ -182,6 +187,9 @@ private fun ProfileHeader(onEditClick: () -> Unit) {
 
 @Composable
 private fun ProfileOptionsCard(options: List<ProfileOption>) {
+    var isEnabled by remember {
+        mutableStateOf(false)
+    }
     Card(
         shape = MediumRoundedCornerShape,
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
@@ -189,7 +197,22 @@ private fun ProfileOptionsCard(options: List<ProfileOption>) {
     ) {
         Column {
             options.forEachIndexed { index, option ->
-                ProfileRow(option)
+                ProfileRow(
+                    option = option,
+                    isSwitch = option.title == "Night Mode",
+                    isChecked = isEnabled,
+                    onCheckedChange = {
+                        isEnabled = it
+                        AppCompatDelegate.setDefaultNightMode(
+                            if (isEnabled)
+                                AppCompatDelegate.MODE_NIGHT_YES
+                            else {
+                                AppCompatDelegate.MODE_NIGHT_NO
+                            }
+                        )
+                        Log.d("NavHostScreen", "getDefaultNightMode: ${AppCompatDelegate.getDefaultNightMode()}")
+                    }
+                )
 
                 if (index != options.lastIndex) {
                     HorizontalLineSeparator(color = AppColor.Grey)
@@ -201,17 +224,21 @@ private fun ProfileOptionsCard(options: List<ProfileOption>) {
 }
 
 @Composable
-fun ProfileRow(option: ProfileOption) {
+fun ProfileRow(
+    option: ProfileOption,
+    isSwitch: Boolean = false,
+    isChecked: Boolean = false,
+    onCheckedChange: (Boolean) -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { option.onClick() }
+            .clickable { if (!isSwitch) option.onClick() }
             .padding(
                 horizontal = Baseline5,
                 vertical = Baseline4_5
             ),
         verticalAlignment = Alignment.CenterVertically,
-
     ) {
         AppIcon(
             painter = option.icon,
@@ -226,9 +253,32 @@ fun ProfileRow(option: ProfileOption) {
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
         )
-        AppIcon(
-            painter = AppIcons.ArrowRight,
-            tint= AppColor.GreyLight
-        )
+
+        if (isSwitch){
+            Switch(
+                checked = isChecked,
+                onCheckedChange = onCheckedChange ,
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = AppColor.GreenRacing,
+                    checkedTrackColor = AppColor.GreenTeal,
+                    uncheckedThumbColor = AppColor.GreenTeal,
+                    uncheckedTrackColor = AppColor.GreyLight,
+                ),
+                thumbContent = if (isChecked) {
+                    {
+                        AppIcon(
+                            painter = AppIcons.CheckedIcon,
+                            tint = AppColor.White,
+                            modifier = Modifier.size(SwitchDefaults.IconSize)
+                        )
+                    }
+                } else null
+            )
+        }else{
+            AppIcon(
+                painter = AppIcons.ArrowRight,
+                tint= AppColor.GreyLight
+            )
+        }
     }
 }
