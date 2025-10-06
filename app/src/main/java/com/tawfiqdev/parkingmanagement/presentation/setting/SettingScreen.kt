@@ -1,6 +1,8 @@
 package com.tawfiqdev.parkingmanagement.presentation.setting
 
+import android.content.res.Configuration
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -30,6 +33,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,8 +48,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.tawfiqdev.design_system.components.AppIcon
 import com.tawfiqdev.design_system.components.AppIconArrowBack
@@ -53,6 +61,7 @@ import com.tawfiqdev.design_system.components.HorizontalLineSeparator
 import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
+import com.tawfiqdev.design_system.theme.ParkingManagementTheme
 import com.tawfiqdev.design_system.utils.Baseline0
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline4_5
@@ -68,6 +77,7 @@ data class ProfileOption(
 @Composable
 fun SettingScreen(
     navController: NavController,
+    viewModel: SettingViewModel = hiltViewModel(),
     onEditClick: () -> Unit = {},
     onProfileClick: () -> Unit = {},
     onLanguageClick: () -> Unit = {},
@@ -75,36 +85,38 @@ fun SettingScreen(
     onLocalisationClick: () -> Unit = {},
     onLogOutClick: () -> Unit = {}
 ) {
-    val items = listOf(
-        ProfileOption(
-            icon = AppIcons.ProfileOutlinedIcon,
-            title = "Your profile",
-            onClick = onProfileClick
-        ),
-        ProfileOption(
-            icon = AppIcons.NotificationIcon,
-            title = "Notification",
-            onClick = onNotificationClick
-        ),
-        ProfileOption(
-            icon = AppIcons.LanguageIcon,
-            title = "Language",
-            onClick = onLanguageClick
-        ),
-        ProfileOption(
-            icon = AppIcons.ModeIcon,
-            title = "Night Mode",
-        ),
-        ProfileOption(
-            icon = AppIcons.LocationOutlinedIcon,
-            title = "Localisation",
-            onClick = onLocalisationClick
-        ),
-        ProfileOption(
-            icon = AppIcons.DeleteOutlinedIcon,
-            title = "Log out",
-            onClick = onLogOutClick
+    val ui by viewModel.ui.collectAsStateWithLifecycle()
+    if (ui.showPermissionDialog) {
+        AlertDialog(
+            onDismissRequest = {
+                viewModel.dismissPermissionDialog()
+            },
+            title = {
+                Text("Autoriser le mode sombre ?")
+            },
+            text = {
+                Text("Souhaitez-vous activer le mode sombre pour améliorer le confort visuel la nuit ?")
+            },
+            confirmButton = {
+                TextButton(onClick = { viewModel.onPermissionResponse(true) }) {
+                    Text("Autoriser")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.onPermissionResponse(false) }) {
+                    Text("Refuser")
+                }
+            }
         )
+    }
+
+    val items = listOf(
+        ProfileOption(AppIcons.ProfileOutlinedIcon, "Your profile", onProfileClick),
+        ProfileOption(AppIcons.NotificationIcon, "Notification", onNotificationClick),
+        ProfileOption(AppIcons.LanguageIcon, "Language", onLanguageClick),
+        ProfileOption(AppIcons.ModeIcon, "Night Mode",),
+        ProfileOption(AppIcons.LocationOutlinedIcon, "Localisation", onLocalisationClick),
+        ProfileOption(AppIcons.DeleteOutlinedIcon, "Log out", onLogOutClick)
     )
 
     Scaffold(
@@ -115,7 +127,7 @@ fun SettingScreen(
                     AppText(
                         text = "Setting",
                         textAlignment = TextAlign.Center,
-                        color = AppColor.Black,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -125,6 +137,9 @@ fun SettingScreen(
                         AppIconArrowBack()
                     }
                 },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
             )
         }
     ) { paddingValues ->
@@ -137,7 +152,13 @@ fun SettingScreen(
         ) {
             ProfileHeader(onEditClick = onEditClick)
             Spacer(Modifier.height(24.dp))
-            ProfileOptionsCard(items)
+            ProfileOptionsCard(
+                options = items,
+                isDark = ui.isDark,
+                onToggleDark = { it ->
+                    viewModel.onDarkToggleRequested(it)
+                }
+            )
         }
     }
 }
@@ -186,31 +207,25 @@ private fun ProfileHeader(onEditClick: () -> Unit) {
 }
 
 @Composable
-private fun ProfileOptionsCard(options: List<ProfileOption>) {
-    var isEnabled by remember {
-        mutableStateOf(false)
-    }
+private fun ProfileOptionsCard(
+    options: List<ProfileOption>,
+    isDark: Boolean,
+    onToggleDark: (Boolean) -> Unit
+) {
     Card(
         shape = MediumRoundedCornerShape,
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface,),
         modifier = Modifier.fillMaxWidth()
     ) {
         Column {
             options.forEachIndexed { index, option ->
+                val isNight = option.title == "Night Mode"
                 ProfileRow(
                     option = option,
-                    isSwitch = option.title == "Night Mode",
-                    isChecked = isEnabled,
-                    onCheckedChange = {
-                        isEnabled = it
-                        AppCompatDelegate.setDefaultNightMode(
-                            if (isEnabled)
-                                AppCompatDelegate.MODE_NIGHT_YES
-                            else {
-                                AppCompatDelegate.MODE_NIGHT_NO
-                            }
-                        )
-                        Log.d("NavHostScreen", "getDefaultNightMode: ${AppCompatDelegate.getDefaultNightMode()}")
+                    isSwitch = isNight,
+                    isChecked = if (isNight) isDark else false,
+                    onCheckedChange = { checked ->
+                        if (isNight) onToggleDark(checked) else option.onClick()
                     }
                 )
 
@@ -233,23 +248,20 @@ fun ProfileRow(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { if (!isSwitch) option.onClick() }
+            .clickable {
+                if (isSwitch) onCheckedChange(!isChecked) else option.onClick()
+            }
             .padding(
                 horizontal = Baseline5,
                 vertical = Baseline4_5
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        AppIcon(
-            painter = option.icon,
-            tint = AppColor.GreenRacing
-        )
-        Spacer(
-            modifier = Modifier.width(Baseline5)
-        )
+        AppIcon(painter = option.icon,)
+        Spacer(modifier = Modifier.width(Baseline5))
         AppText(
             text = option.title,
-            color = AppColor.Black,
+            color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
         )
@@ -280,5 +292,44 @@ fun ProfileRow(
                 tint= AppColor.GreyLight
             )
         }
+    }
+}
+
+@Composable
+private fun ProfileRowPreviewContent() {
+    var checked by remember {
+        mutableStateOf(false)
+    }
+    Column(Modifier.padding(16.dp)) {
+        ProfileRow(
+            option = ProfileOption(icon = AppIcons.ModeIcon, title = "Night Mode"),
+            isSwitch = true,
+            isChecked = checked,
+            onCheckedChange = { checked = it }
+        )
+        ProfileRow(
+            option = ProfileOption(icon = AppIcons.LanguageIcon, title = "Language"),
+            isSwitch = false
+        )
+    }
+}
+
+@Preview(name = "ProfileRow Light", showBackground = true)
+@Composable
+fun ProfileRowPreviewLight() {
+    ParkingManagementTheme(darkTheme = false) {
+        ProfileRowPreviewContent()
+    }
+}
+
+@Preview(
+    name = "ProfileRow Dark",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun ProfileRowPreviewDark() {
+    ParkingManagementTheme(darkTheme = true) {
+        ProfileRowPreviewContent()
     }
 }

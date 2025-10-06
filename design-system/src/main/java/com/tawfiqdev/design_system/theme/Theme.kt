@@ -10,16 +10,10 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.tawfiqdev.design_system.theme.AppColor.Black
-import com.tawfiqdev.design_system.theme.AppColor.DarkSurface
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing10
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing30
 import com.tawfiqdev.design_system.theme.AppColor.GreenRacing40
 import com.tawfiqdev.design_system.theme.AppColor.GreenRacing80
 import com.tawfiqdev.design_system.theme.AppColor.GreenRacing90
 import com.tawfiqdev.design_system.theme.AppColor.GreenTeal
-import com.tawfiqdev.design_system.theme.AppColor.GreenTeal80
-import com.tawfiqdev.design_system.theme.AppColor.NearBlack
 import com.tawfiqdev.design_system.theme.AppColor.White
 
 private val LightColors = lightColorScheme(
@@ -36,36 +30,31 @@ private val LightColors = lightColorScheme(
 )
 
 private val DarkColors = darkColorScheme(
-    primary = GreenRacing30,
+    primary = Black,
     onPrimary = Black,
-    primaryContainer = GreenRacing10,
-    onPrimaryContainer = GreenRacing,
-    secondary = GreenTeal80,
+    primaryContainer = Black,
+    onPrimaryContainer = Black,
+    secondary = Black,
     onSecondary = Black,
-    background = NearBlack,
-    onBackground = White,
-    surface = DarkSurface,
-    onSurface = White
+    background = Black,
+    onBackground = Black,
+    surface = Black,
+    onSurface = Black
 )
 
 @Composable
 fun ParkingManagementTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true, // Active color of Material You sur Android 12+
+    dynamicColor: Boolean = false, // Active color of Material You sur Android 12+
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current
     val colorScheme =
         if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (darkTheme) dynamicDarkColorScheme(context)
-            else {
-                dynamicLightColorScheme(context)
-            }
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         } else {
-            if (darkTheme) DarkColors
-            else {
-                LightColors
-            }
+
+            if (darkTheme) DarkColors else LightColors
         }
 
     MaterialTheme(

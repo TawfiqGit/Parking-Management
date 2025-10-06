@@ -20,6 +20,7 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -144,7 +145,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(140.dp)
-                .background(AppColor.White)
+                .background(MaterialTheme.colorScheme.onBackground)
             ) {
                 Image(
                     painter = painterResource(R.drawable.parking_empty),
@@ -162,7 +163,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
                 )
                 SquareActionButton(
                     modifier = Modifier.align(Alignment.TopEnd).padding(Baseline3),
-                    color = AppColor.White,
+                    color = MaterialTheme.colorScheme.onBackground,
                     onClick = {},
                     icon = {
                         AppIcon(painter = FavoriteBorder, tint = AppColor.RedSpring)
@@ -170,7 +171,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
                 )
             }
             Column(
-                modifier = Modifier.background(AppColor.White).padding(Baseline4)
+                modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).padding(Baseline4)
             ) {
                 AppText(
                     text = parking.category.name,

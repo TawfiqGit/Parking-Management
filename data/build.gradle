@@ -41,6 +41,7 @@ dependencies {
 
     // Room si DB
     implementation(libs.androidx.room.ktx)
+    implementation libs.androidx.datastore.core.android
 
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)

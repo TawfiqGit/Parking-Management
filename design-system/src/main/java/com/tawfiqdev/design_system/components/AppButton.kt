@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,7 +29,7 @@ fun AppButton(
     fontSize: TextUnit = 16.sp,
     shape: RoundedCornerShape = ExtraSmallRoundedCornerShape,
     backgroundColor: Color = AppColor.GreenRacing,
-    contentColor: Color = AppColor.White,
+    contentColor: Color = MaterialTheme.colorScheme.onBackground,
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
