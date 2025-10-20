@@ -1,6 +1,7 @@
 package com.tawfiqdev.design_system.theme
 
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -17,29 +18,48 @@ import com.tawfiqdev.design_system.theme.AppColor.GreenTeal
 import com.tawfiqdev.design_system.theme.AppColor.White
 
 private val LightColors = lightColorScheme(
-    primary = GreenRacing90 ,
-    onPrimary = White,
-    primaryContainer = GreenRacing40,
-    onPrimaryContainer = GreenRacing80,
-    secondary = GreenTeal,
-    onSecondary = White,
-    background = White,
-    onBackground = Black,
-    surface = White,
-    onSurface = Black
+    // Couleurs de base
+    background = AppColor.White,
+    surface    = AppColor.White,
+    primary    = AppColor.GreenTeal,         // couleur d’accent
+    onPrimary  = AppColor.White,             // contraste sur primary
+    secondary  = AppColor.GreenRacing,       // 2e accent
+    onSecondary = AppColor.White,
+
+    // Couleurs de contenu
+    onBackground = AppColor.NearBlack,
+    onSurface    = AppColor.NearBlack,
+
+    // Containers (optionnel, mais utile)
+    primaryContainer       = AppColor.GreenTeal80,
+    onPrimaryContainer     = AppColor.White,
+    secondaryContainer     = AppColor.GreenRacing80,
+    onSecondaryContainer   = AppColor.NearBlack,
 )
 
 private val DarkColors = darkColorScheme(
-    primary = Black,
-    onPrimary = Black,
-    primaryContainer = Black,
-    onPrimaryContainer = Black,
-    secondary = Black,
-    onSecondary = Black,
-    background = Black,
-    onBackground = Black,
-    surface = Black,
-    onSurface = Black
+    // Bases sombres
+    background = AppColor.NearBlack,         // 0xFF0B0B0B
+    surface    = AppColor.DarkSurface,       // 0xFF121212
+    // Accents
+    primary    = AppColor.GreenTeal,         // garde l’accent lisible sur fond sombre
+    onPrimary  = AppColor.Black,             // ou AppColor.NearBlack si tu préfères
+    secondary  = AppColor.GreenRacing10,
+    onSecondary = AppColor.White,
+
+    // Contenu clair au-dessus des fonds sombres
+    onBackground = AppColor.White,
+    onSurface    = AppColor.White,
+
+    // Containers (sombres)
+    primaryContainer       = AppColor.GreenTeal80,   // un ton désaturé sombre
+    onPrimaryContainer     = AppColor.White,
+    secondaryContainer     = AppColor.GreenRacing80,
+    onSecondaryContainer   = AppColor.NearBlack,
+
+    // Tertiaire si tu l’utilises (facultatif)
+    tertiary    = AppColor.SoftBlue,
+    onTertiary  = AppColor.NearBlack,
 )
 
 @Composable
@@ -53,7 +73,6 @@ fun ParkingManagementTheme(
         if (dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         } else {
-
             if (darkTheme) DarkColors else LightColors
         }
 

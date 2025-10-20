@@ -23,7 +23,7 @@ fun AppIcon(
     modifier: Modifier = Modifier,
     painter: Painter,
     size: Dp = 24.dp,
-    tint: Color = MaterialTheme.colorScheme.onBackground
+    tint: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Icon(
         modifier = modifier
@@ -40,7 +40,7 @@ fun AppIconArrowBack() {
     Icon(
         imageVector = Icons.Default.ArrowBack,
         contentDescription = null,
-        tint = MaterialTheme.colorScheme.onBackground
+        tint = MaterialTheme.colorScheme.onSurface
     )
 }
 

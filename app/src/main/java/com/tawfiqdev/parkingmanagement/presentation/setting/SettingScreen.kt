@@ -138,7 +138,7 @@ fun SettingScreen(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.onBackground,
                 )
             )
         }
@@ -213,19 +213,23 @@ private fun ProfileOptionsCard(
     onToggleDark: (Boolean) -> Unit
 ) {
     Card(
+        modifier = Modifier.fillMaxWidth(),
         shape = MediumRoundedCornerShape,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface,),
-        modifier = Modifier.fillMaxWidth()
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.onBackground,
+        )
     ) {
         Column {
             options.forEachIndexed { index, option ->
-                val isNight = option.title == "Night Mode"
+                val isNightMode = option.title == "Night Mode"
+                Log.i("parkingManagementTheme", "isNight: $isNightMode")
+
                 ProfileRow(
                     option = option,
-                    isSwitch = isNight,
-                    isChecked = if (isNight) isDark else false,
+                    isSwitch = isNightMode,
+                    isChecked = if (isNightMode) isDark else false,
                     onCheckedChange = { checked ->
-                        if (isNight) onToggleDark(checked) else option.onClick()
+                        if (isNightMode) onToggleDark(checked) else option.onClick()
                     }
                 )
 
@@ -257,11 +261,11 @@ fun ProfileRow(
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        AppIcon(painter = option.icon,)
+        AppIcon(painter = option.icon)
         Spacer(modifier = Modifier.width(Baseline5))
         AppText(
             text = option.title,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
         )
@@ -276,15 +280,13 @@ fun ProfileRow(
                     uncheckedThumbColor = AppColor.GreenTeal,
                     uncheckedTrackColor = AppColor.GreyLight,
                 ),
-                thumbContent = if (isChecked) {
-                    {
-                        AppIcon(
-                            painter = AppIcons.CheckedIcon,
-                            tint = AppColor.White,
-                            modifier = Modifier.size(SwitchDefaults.IconSize)
-                        )
-                    }
-                } else null
+                thumbContent = if (isChecked) {{
+                    AppIcon(
+                        painter = AppIcons.CheckedIcon,
+                        tint = AppColor.White,
+                        modifier = Modifier.size(SwitchDefaults.IconSize)
+                    )
+                } } else null
             )
         }else{
             AppIcon(
