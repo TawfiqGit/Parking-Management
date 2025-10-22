@@ -11,7 +11,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.RobotoFamily
 
 @Composable
@@ -22,12 +21,11 @@ fun AppText(
     textAlignment : TextAlign = TextAlign.Start,
     fontSize: TextUnit = 14.sp,
     fontWeight : FontWeight = FontWeight.Normal,
-    onSelectedLocationClick: () -> Unit = {},
+    isEnable : Boolean = true,
+    onClick: () -> Unit = {},
 ) {
     Text(
-        modifier = modifier.clickable {
-            onSelectedLocationClick()
-        },
+        modifier = modifier.clickable(enabled = isEnable) { if (isEnable) onClick() },
         text = text,
         fontSize = fontSize,
         color = color,
