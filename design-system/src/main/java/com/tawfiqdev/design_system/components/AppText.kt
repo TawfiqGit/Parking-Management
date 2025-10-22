@@ -1,6 +1,7 @@
 package com.tawfiqdev.design_system.components
 
 import androidx.compose.foundation.clickable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +18,7 @@ import com.tawfiqdev.design_system.theme.RobotoFamily
 fun AppText(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = AppColor.White,
+    color: Color = MaterialTheme.colorScheme.onBackground,
     textAlignment : TextAlign = TextAlign.Start,
     fontSize: TextUnit = 14.sp,
     fontWeight : FontWeight = FontWeight.Normal,

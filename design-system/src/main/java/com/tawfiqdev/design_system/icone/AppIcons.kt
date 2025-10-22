@@ -3,6 +3,7 @@ package com.tawfiqdev.design_system.icone
 import android.graphics.drawable.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LocationOn
@@ -117,4 +118,7 @@ object AppIcons {
         @Composable
         get() = rememberVectorPainter(Icons.Default.Edit)
 
+    val CheckedIcon: Painter
+        @Composable
+        get() = rememberVectorPainter(Icons.Filled.Check)
 }

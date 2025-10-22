@@ -3,6 +3,7 @@ package com.tawfiqdev.design_system.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ fun RatingBadge(rating: Double, modifier: Modifier = Modifier) {
                 shape = NormalRoundedCornerShape
             )
             .background(
-                color = AppColor.White,
+                color = MaterialTheme.colorScheme.onBackground,
                 shape = NormalRoundedCornerShape
             )
             .padding(

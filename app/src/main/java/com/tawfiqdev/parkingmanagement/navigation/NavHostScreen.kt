@@ -1,6 +1,8 @@
 package com.tawfiqdev.parkingmanagement.navigation
 
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -13,6 +15,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -21,17 +28,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.tawfiqdev.design_system.components.AnimatedSplashScreen
+import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
-import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
+import com.tawfiqdev.parkingmanagement.presentation.utils.PreferencesManager
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun NavHostScreen(
-    isReadyFlow: StateFlow<Boolean>
+    isReadyFlow: StateFlow<Boolean>,
 ) {
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
@@ -91,8 +99,7 @@ fun NavHostScreen(
             composable(Routes.Home) { HomeScreen(navController = navController) }
             composable(Routes.Booking) { BookingScreen(navController = navController) }
             composable(Routes.History) { HistoryPage() }
-            composable(Routes.Setting) { SettingScreen (navController = navController) }
-
+            composable(Routes.Setting) { SettingScreen (navController = navController,) }
             composable(Routes.SelectLocation) {
                 SelectLocationScreen(
                     onBack = { navController.popBackStack() },

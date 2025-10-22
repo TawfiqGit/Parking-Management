@@ -5,6 +5,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,7 +23,7 @@ fun AppIcon(
     modifier: Modifier = Modifier,
     painter: Painter,
     size: Dp = 24.dp,
-    tint: Color = Color.White
+    tint: Color = MaterialTheme.colorScheme.onSurface
 ) {
     Icon(
         modifier = modifier
@@ -39,7 +40,7 @@ fun AppIconArrowBack() {
     Icon(
         imageVector = Icons.Default.ArrowBack,
         contentDescription = null,
-        tint = AppColor.Black
+        tint = MaterialTheme.colorScheme.onSurface
     )
 }
 
@@ -48,7 +49,7 @@ fun AppIconAdd() {
     Icon(
         imageVector = Icons.Default.AddCircle,
         contentDescription = null,
-        tint = AppColor.GreenRacing
+        tint = MaterialTheme.colorScheme.onBackground
     )
 }
 
