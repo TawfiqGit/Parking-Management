@@ -3,6 +3,7 @@ package com.tawfiqdev.parkingmanagement.presentation.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -51,12 +52,16 @@ import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.parkingmanagement.R
 import com.tawfiqdev.model.Parking
+import com.tawfiqdev.parkingmanagement.presentation.home.detail.ParkingDetailScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
     val state by viewModel.popularParkingState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -125,6 +130,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                         items(list) { p ->
                             ParkingCard(parking = p as Parking) {
                                 // action clic sur une carte
+                                navController.navigate("parkingDetail")
                             }
                         }
                     }

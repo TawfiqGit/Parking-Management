@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
@@ -25,6 +26,7 @@ import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.detail.ParkingDetailScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -39,15 +41,16 @@ fun NavHostScreen(
     val viewModel = hiltViewModel() as MainViewModel
 
     val navItems = listOf(
-        NavItem("Home", Icons.Default.Home, Routes.Home),
-        NavItem("Booking", Icons.Default.DateRange, Routes.Booking),
-        NavItem("History", Icons.Default.Search, Routes.History),
-        NavItem("Setting", Icons.Default.Settings, Routes.Setting)
+        NavItem("Home", Icons.Default.Home, Home),
+        NavItem("Booking", Icons.Default.DateRange, Booking),
+        NavItem("History", Icons.Default.Search, History),
+        NavItem("Setting", Icons.Default.Settings, Setting),
+        NavItem("Detail", Icons.Default.Delete, ParkingDetail),
     )
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != Routes.Splash) {
+            if (currentRoute != Splash) {
                 NavigationBar {
                     navItems.forEach { item ->
                         NavigationBarItem(
@@ -72,15 +75,15 @@ fun NavHostScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Routes.Splash,
+            startDestination = Splash,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Routes.Splash) {
+            composable(Splash) {
                 AnimatedSplashScreen(
                     isReadyFlow = isReadyFlow,
                     onFinished = {
-                        navController.navigate(Routes.Home) {
-                            popUpTo(Routes.Splash) {
+                        navController.navigate(Home) {
+                            popUpTo(Splash) {
                                 inclusive = true
                             }
                             launchSingleTop = true
@@ -88,11 +91,7 @@ fun NavHostScreen(
                     }
                 )
             }
-            composable(Routes.Home) { HomeScreen(navController = navController) }
-            composable(Routes.Booking) { BookingScreen(navController = navController) }
-            composable(Routes.History) { HistoryPage() }
-            composable(Routes.Setting) { SettingScreen (navController = navController) }
-            composable(Routes.SelectLocation) {
+            composable(SelectLocation) {
                 SelectLocationScreen(
                     onBack = { navController.popBackStack() },
                     onResultClick = { chosen ->
@@ -101,6 +100,20 @@ fun NavHostScreen(
                     onUseCurrentLocation = { /* TODO geoloc */ }
                 )
             }
+            composable(ParkingDetail) {
+                val parkingId = it.arguments?.getString("parkingId")
+                val reservationId = it.arguments?.getString("reservationId")
+                ParkingDetailScreen (
+                    onBackClick = { navController.popBackStack() },
+                    onBookClick = {
+                        navController.navigate("booking/$parkingId/$reservationId")
+                    }
+                )
+            }
+            composable(Home) { HomeScreen(navController = navController) }
+            composable(Booking) { BookingScreen(navController = navController) }
+            composable(History) { HistoryPage() }
+            composable(Setting) { SettingScreen (navController = navController) }
         }
     }
 }

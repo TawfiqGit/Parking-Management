@@ -51,6 +51,7 @@ import com.tawfiqdev.model.Reservation
 import com.tawfiqdev.model.ReservationDetails
 import com.tawfiqdev.model.User
 import com.tawfiqdev.model.Vehicle
+import com.tawfiqdev.parkingmanagement.presentation.booking.component.BookingCard
 import com.tawfiqdev.parkingmanagement.presentation.booking.viewmodel.BookingViewModel
 import java.time.Instant
 
