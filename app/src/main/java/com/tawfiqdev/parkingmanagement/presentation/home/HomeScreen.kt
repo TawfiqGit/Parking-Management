@@ -145,7 +145,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(140.dp)
-                .background(MaterialTheme.colorScheme.onBackground)
+                .background(MaterialTheme.colorScheme.onPrimary)
             ) {
                 Image(
                     painter = painterResource(R.drawable.parking_empty),
@@ -163,7 +163,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
                 )
                 SquareActionButton(
                     modifier = Modifier.align(Alignment.TopEnd).padding(Baseline3),
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.primary,
                     onClick = {},
                     icon = {
                         AppIcon(painter = FavoriteBorder, tint = AppColor.RedSpring)
@@ -171,7 +171,9 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
                 )
             }
             Column(
-                modifier = Modifier.background(MaterialTheme.colorScheme.onBackground).padding(Baseline4)
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.onSecondary)
+                    .padding(Baseline4)
             ) {
                 AppText(
                     text = parking.category.name,
