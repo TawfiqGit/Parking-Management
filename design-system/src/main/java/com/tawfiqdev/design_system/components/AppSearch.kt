@@ -42,9 +42,9 @@ fun ParkingSearch(modifier: Modifier = Modifier) {
             .clip(MediumRoundedCornerShape)
             .background(RoseSeaShell),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.onBackground,
-            unfocusedContainerColor = MaterialTheme.colorScheme.onBackground,
-            disabledContainerColor = MaterialTheme.colorScheme.onBackground
+            focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            disabledContainerColor = MaterialTheme.colorScheme.onPrimary
         )
     )
 }

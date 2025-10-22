@@ -1,7 +1,6 @@
 package com.tawfiqdev.design_system.theme
 
 import android.os.Build
-import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -11,61 +10,39 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.tawfiqdev.design_system.theme.AppColor.Black
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing40
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing80
-import com.tawfiqdev.design_system.theme.AppColor.GreenRacing90
+import com.tawfiqdev.design_system.theme.AppColor.DarkSurface
+import com.tawfiqdev.design_system.theme.AppColor.GreenRacing
+import com.tawfiqdev.design_system.theme.AppColor.GreenRacing10
 import com.tawfiqdev.design_system.theme.AppColor.GreenTeal
+import com.tawfiqdev.design_system.theme.AppColor.NearBlack
 import com.tawfiqdev.design_system.theme.AppColor.White
 
 private val LightColors = lightColorScheme(
-    // Couleurs de base
-    background = AppColor.White,
-    surface    = AppColor.White,
-    primary    = AppColor.GreenTeal,         // couleur d’accent
-    onPrimary  = AppColor.White,             // contraste sur primary
-    secondary  = AppColor.GreenRacing,       // 2e accent
-    onSecondary = AppColor.White,
-
-    // Couleurs de contenu
-    onBackground = AppColor.NearBlack,
-    onSurface    = AppColor.NearBlack,
-
-    // Containers (optionnel, mais utile)
-    primaryContainer       = AppColor.GreenTeal80,
-    onPrimaryContainer     = AppColor.White,
-    secondaryContainer     = AppColor.GreenRacing80,
-    onSecondaryContainer   = AppColor.NearBlack,
+    background = White,
+    surface    = White,
+    primary    = GreenTeal,
+    onPrimary  = White,
+    secondary  = GreenRacing,
+    onSecondary = White,
+    onBackground = NearBlack,
+    onSurface    = NearBlack,
 )
 
 private val DarkColors = darkColorScheme(
-    // Bases sombres
-    background = AppColor.NearBlack,         // 0xFF0B0B0B
-    surface    = AppColor.DarkSurface,       // 0xFF121212
-    // Accents
-    primary    = AppColor.GreenTeal,         // garde l’accent lisible sur fond sombre
-    onPrimary  = AppColor.Black,             // ou AppColor.NearBlack si tu préfères
-    secondary  = AppColor.GreenRacing10,
-    onSecondary = AppColor.White,
-
-    // Contenu clair au-dessus des fonds sombres
-    onBackground = AppColor.White,
-    onSurface    = AppColor.White,
-
-    // Containers (sombres)
-    primaryContainer       = AppColor.GreenTeal80,   // un ton désaturé sombre
-    onPrimaryContainer     = AppColor.White,
-    secondaryContainer     = AppColor.GreenRacing80,
-    onSecondaryContainer   = AppColor.NearBlack,
-
-    // Tertiaire si tu l’utilises (facultatif)
-    tertiary    = AppColor.SoftBlue,
-    onTertiary  = AppColor.NearBlack,
+    background = NearBlack,
+    surface    = DarkSurface,
+    primary    = GreenTeal,
+    onPrimary  = Black,
+    secondary  = GreenRacing10,
+    onSecondary = White,
+    onBackground = White,
+    onSurface    = White,
 )
 
 @Composable
 fun ParkingManagementTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false, // Active color of Material You sur Android 12+
+    dynamicColor: Boolean = false, // if Android 12+
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current

@@ -2,8 +2,6 @@ package com.tawfiqdev.parkingmanagement.presentation.setting
 
 import android.content.res.Configuration
 import android.util.Log
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,7 +41,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -58,6 +55,7 @@ import com.tawfiqdev.design_system.components.AppIcon
 import com.tawfiqdev.design_system.components.AppIconArrowBack
 import com.tawfiqdev.design_system.components.AppText
 import com.tawfiqdev.design_system.components.HorizontalLineSeparator
+import com.tawfiqdev.design_system.components.LogoutBottomSheet
 import com.tawfiqdev.design_system.icone.AppIcons
 import com.tawfiqdev.design_system.theme.AppColor
 import com.tawfiqdev.design_system.theme.MediumRoundedCornerShape
@@ -83,9 +81,10 @@ fun SettingScreen(
     onLanguageClick: () -> Unit = {},
     onNotificationClick: () -> Unit = {},
     onLocalisationClick: () -> Unit = {},
-    onLogOutClick: () -> Unit = {}
 ) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
+    Log.i("parkingManagementTheme", "ui: $ui")
+
     if (ui.showPermissionDialog) {
         AlertDialog(
             onDismissRequest = {
@@ -110,13 +109,34 @@ fun SettingScreen(
         )
     }
 
+    var showLogoutSheet by remember { mutableStateOf(false) }
+    Log.i("parkingManagementTheme", "showLogoutSheet: $ui")
+
+    val onLogoutConfirmed: () -> Unit = {
+        //viewModel.logout()
+        navController.navigate("login") {
+            popUpTo("setting") { inclusive = true }
+        }
+    }
+
+    LogoutBottomSheet(
+        showSheet = showLogoutSheet,
+        onDismiss = { showLogoutSheet = false },
+        onConfirmLogout = {
+            showLogoutSheet = false
+            onLogoutConfirmed()
+        }
+    )
+
     val items = listOf(
         ProfileOption(AppIcons.ProfileOutlinedIcon, "Your profile", onProfileClick),
         ProfileOption(AppIcons.NotificationIcon, "Notification", onNotificationClick),
         ProfileOption(AppIcons.LanguageIcon, "Language", onLanguageClick),
         ProfileOption(AppIcons.ModeIcon, "Night Mode",),
         ProfileOption(AppIcons.LocationOutlinedIcon, "Localisation", onLocalisationClick),
-        ProfileOption(AppIcons.DeleteOutlinedIcon, "Log out", onLogOutClick)
+        ProfileOption(AppIcons.DeleteOutlinedIcon, "Log out", onClick = {
+            showLogoutSheet = true
+        })
     )
 
     Scaffold(
@@ -138,7 +158,7 @@ fun SettingScreen(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.onBackground,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                 )
             )
         }
@@ -216,7 +236,7 @@ private fun ProfileOptionsCard(
         modifier = Modifier.fillMaxWidth(),
         shape = MediumRoundedCornerShape,
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.onBackground,
+            containerColor = MaterialTheme.colorScheme.onPrimary,
         )
     ) {
         Column {
@@ -267,7 +287,8 @@ fun ProfileRow(
             text = option.title,
             color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Medium,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            isEnable = false
         )
 
         if (isSwitch){

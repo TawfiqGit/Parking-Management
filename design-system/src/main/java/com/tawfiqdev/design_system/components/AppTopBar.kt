@@ -1,35 +1,21 @@
 package com.tawfiqdev.design_system.components
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.tawfiqdev.design_system.icone.AppIcons.LocationIcon
 import com.tawfiqdev.design_system.icone.AppIcons.NotificationIcon
 import com.tawfiqdev.design_system.theme.AppColor
@@ -37,7 +23,6 @@ import com.tawfiqdev.design_system.utils.Baseline1
 import com.tawfiqdev.design_system.utils.Baseline2
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.design_system.utils.Baseline6
-import java.time.Instant
 
 @Composable
 fun LocationHeader(
@@ -63,7 +48,7 @@ fun LocationHeader(
 
                 Spacer(Modifier.width(Baseline2))
 
-                AppText(text = location, color = AppColor.White, onSelectedLocationClick = onSelectedLocationClick)
+                AppText(text = location, color = AppColor.White, onClick = onSelectedLocationClick)
 
                 Spacer(Modifier.width(Baseline1))
 
