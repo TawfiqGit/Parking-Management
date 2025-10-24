@@ -45,7 +45,6 @@ fun NavHostScreen(
         NavItem("Booking", Icons.Default.DateRange, Booking),
         NavItem("History", Icons.Default.Search, History),
         NavItem("Setting", Icons.Default.Settings, Setting),
-        NavItem("Detail", Icons.Default.Delete, ParkingDetail),
     )
 
     Scaffold(

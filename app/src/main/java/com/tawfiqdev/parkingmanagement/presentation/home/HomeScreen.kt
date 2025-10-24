@@ -129,7 +129,6 @@ fun HomeScreen(
                     ) {
                         items(list) { p ->
                             ParkingCard(parking = p as Parking) {
-                                // action clic sur une carte
                                 navController.navigate("parkingDetail")
                             }
                         }
@@ -142,7 +141,10 @@ fun HomeScreen(
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
+fun ParkingCard(
+    parking: Parking ,
+    onClick: (Parking) -> Unit = {}
+) {
     Card(
         modifier = Modifier.width(260.dp),
         shape = ExtraMediumRoundedCornerShape
@@ -151,6 +153,7 @@ fun ParkingCard(parking: Parking , onClick: (Parking) -> Unit = {}) {
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(140.dp)
+                .clickable { onClick(parking) }
                 .background(MaterialTheme.colorScheme.onPrimary)
             ) {
                 Image(
