@@ -1,6 +1,5 @@
-package com.tawfiqdev.parkingmanagement.presentation.booking
+package com.tawfiqdev.parkingmanagement.presentation.booking.component
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -36,7 +35,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.tawfiqdev.model.Reservation
 import com.tawfiqdev.model.ReservationDetails
 
 @Composable

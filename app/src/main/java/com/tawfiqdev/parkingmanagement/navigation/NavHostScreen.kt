@@ -16,18 +16,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.google.gson.Gson
 import com.tawfiqdev.design_system.components.AnimatedSplashScreen
+import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.detail.ParkingDetailScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun NavHostScreen(
@@ -39,15 +46,15 @@ fun NavHostScreen(
     val viewModel = hiltViewModel() as MainViewModel
 
     val navItems = listOf(
-        NavItem("Home", Icons.Default.Home, Routes.Home),
-        NavItem("Booking", Icons.Default.DateRange, Routes.Booking),
-        NavItem("History", Icons.Default.Search, Routes.History),
-        NavItem("Setting", Icons.Default.Settings, Routes.Setting)
+        NavItem("Home", Icons.Default.Home, Home),
+        NavItem("Booking", Icons.Default.DateRange, Booking),
+        NavItem("History", Icons.Default.Search, History),
+        NavItem("Setting", Icons.Default.Settings, Setting),
     )
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != Routes.Splash) {
+            if (currentRoute != Splash) {
                 NavigationBar {
                     navItems.forEach { item ->
                         NavigationBarItem(
@@ -72,15 +79,15 @@ fun NavHostScreen(
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Routes.Splash,
+            startDestination = Splash,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Routes.Splash) {
+            composable(Splash) {
                 AnimatedSplashScreen(
                     isReadyFlow = isReadyFlow,
                     onFinished = {
-                        navController.navigate(Routes.Home) {
-                            popUpTo(Routes.Splash) {
+                        navController.navigate(Home) {
+                            popUpTo(Splash) {
                                 inclusive = true
                             }
                             launchSingleTop = true
@@ -88,11 +95,7 @@ fun NavHostScreen(
                     }
                 )
             }
-            composable(Routes.Home) { HomeScreen(navController = navController) }
-            composable(Routes.Booking) { BookingScreen(navController = navController) }
-            composable(Routes.History) { HistoryPage() }
-            composable(Routes.Setting) { SettingScreen (navController = navController) }
-            composable(Routes.SelectLocation) {
+            composable(SelectLocation) {
                 SelectLocationScreen(
                     onBack = { navController.popBackStack() },
                     onResultClick = { chosen ->
@@ -101,6 +104,25 @@ fun NavHostScreen(
                     onUseCurrentLocation = { /* TODO geoloc */ }
                 )
             }
+            composable(
+                route = "parkingDetail/{parking}",
+                arguments = listOf(navArgument("parking") {
+                    type = NavType.StringType
+                })
+            ) { stackEntry ->
+                val json = stackEntry.arguments?.getString("parking")
+                val decoded = URLDecoder.decode(json, StandardCharsets.UTF_8.toString())
+                val parking = Gson().fromJson(decoded, Parking::class.java)
+
+                ParkingDetailScreen(
+                    parking = parking,
+                    onBackClick = { navController.popBackStack() },
+                )
+            }
+            composable(Home) { HomeScreen(navController = navController) }
+            composable(Booking) { BookingScreen(navController = navController) }
+            composable(History) { HistoryPage() }
+            composable(Setting) { SettingScreen (navController = navController) }
         }
     }
 }

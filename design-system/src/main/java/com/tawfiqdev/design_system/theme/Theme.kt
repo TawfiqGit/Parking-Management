@@ -23,7 +23,7 @@ private val LightColors = lightColorScheme(
     primary    = GreenTeal,
     onPrimary  = White,
     secondary  = GreenRacing,
-    onSecondary = White,
+    onSecondary = Black,
     onBackground = NearBlack,
     onSurface    = NearBlack,
 )

@@ -51,6 +51,7 @@ import com.tawfiqdev.model.Reservation
 import com.tawfiqdev.model.ReservationDetails
 import com.tawfiqdev.model.User
 import com.tawfiqdev.model.Vehicle
+import com.tawfiqdev.parkingmanagement.presentation.booking.component.BookingCard
 import com.tawfiqdev.parkingmanagement.presentation.booking.viewmodel.BookingViewModel
 import java.time.Instant
 
@@ -270,7 +271,8 @@ private fun fakeDetails(
         rating = 4.3,
         distanceMins = 5,
         spots = 120,
-        imageUrl = "https://example.com/opera.jpg"
+        imageUrl = "https://example.com/opera.jpg",
+        address = "1 Av. Daumesnil, Paris"
     )
     val spotA1 = ParkingSpot(
         id = 1L,
