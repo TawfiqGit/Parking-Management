@@ -14,7 +14,9 @@ fun ParkingEntity.toDomain(): Parking = Parking(
     distanceMins=distanceMins,
     spots=spots,
     imageRes= imageRes,
-    imageUrl = imageUrl
+    imageUrl = imageUrl,
+    address = address,
+    reviewCount = reviewCount
 )
 
 fun Parking.toEntity(): ParkingEntity = ParkingEntity(
@@ -26,7 +28,9 @@ fun Parking.toEntity(): ParkingEntity = ParkingEntity(
     distanceMins=distanceMins,
     spots=spots,
     imageRes= imageRes,
-    imageUrl = imageUrl
+    imageUrl = imageUrl,
+    address = address,
+    reviewCount = reviewCount
 )
 
 fun ParkingSpotEntity.toDomain() = ParkingSpot(

@@ -271,7 +271,8 @@ private fun fakeDetails(
         rating = 4.3,
         distanceMins = 5,
         spots = 120,
-        imageUrl = "https://example.com/opera.jpg"
+        imageUrl = "https://example.com/opera.jpg",
+        address = "1 Av. Daumesnil, Paris"
     )
     val spotA1 = ParkingSpot(
         id = 1L,

@@ -5,6 +5,7 @@ coilComposeVersion = "2.5.0"
 coilKtCoilCompose = "2.7.0"
 coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.7"
+gson = "2.13.2"
 hiltAndroid = "2.57.1"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.2.10"
@@ -43,6 +44,7 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose-v250 = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 coil-compose-v270 = { module = "io.coil-kt:coil-compose", version.ref = "coilKtCoilCompose" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

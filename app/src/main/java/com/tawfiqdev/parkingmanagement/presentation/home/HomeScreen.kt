@@ -1,8 +1,10 @@
 package com.tawfiqdev.parkingmanagement.presentation.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,8 +19,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.google.gson.Gson
 import com.tawfiqdev.design_system.components.AppIcon
 import com.tawfiqdev.design_system.components.AppText
 import com.tawfiqdev.design_system.components.LocationHeader
@@ -50,11 +56,13 @@ import com.tawfiqdev.design_system.utils.Baseline2
 import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
-import com.tawfiqdev.parkingmanagement.R
 import com.tawfiqdev.model.Parking
-import com.tawfiqdev.parkingmanagement.presentation.home.detail.ParkingDetailScreen
+import com.tawfiqdev.parkingmanagement.R
+import com.tawfiqdev.parkingmanagement.navigation.ParkingDetail
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -129,7 +137,11 @@ fun HomeScreen(
                     ) {
                         items(list) { p ->
                             ParkingCard(parking = p as Parking) {
-                                navController.navigate("parkingDetail")
+                                val parkingJson = Gson().toJson(p)
+                                Log.i("parkingTmo", "HomeScreen ParkingCard encoded $parkingJson")
+
+                                val encoded = URLEncoder.encode(parkingJson, StandardCharsets.UTF_8.toString())
+                                navController.navigate("$ParkingDetail/$encoded")
                             }
                         }
                     }
@@ -147,7 +159,8 @@ fun ParkingCard(
 ) {
     Card(
         modifier = Modifier.width(260.dp),
-        shape = ExtraMediumRoundedCornerShape
+        shape = ExtraMediumRoundedCornerShape,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
     ) {
         Column {
             Box(modifier = Modifier
@@ -161,27 +174,30 @@ fun ParkingCard(
                     contentDescription = null,
                     modifier = Modifier
                         .matchParentSize()
-                        .padding(Baseline2),
+                        .padding(Baseline2)
+                        .clip(RoundedCornerShape(8.dp)),
                     contentScale = ContentScale.Crop
                 )
                 RatingBadge(
-                    rating = parking.rating ,
+                    rating = parking.rating,
                     modifier = Modifier
                         .align(Alignment.TopStart)
                         .padding(Baseline3)
                 )
                 SquareActionButton(
-                    modifier = Modifier.align(Alignment.TopEnd).padding(Baseline3),
-                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(Baseline3),
+                    color = MaterialTheme.colorScheme.onPrimary,
                     onClick = {},
                     icon = {
-                        AppIcon(painter = FavoriteBorder, tint = AppColor.RedSpring)
+                        AppIcon(painter = FavoriteBorder, tint = AppColor.RedSpring,)
                     }
                 )
             }
             Column(
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.onSecondary)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(Baseline4)
             ) {
                 AppText(

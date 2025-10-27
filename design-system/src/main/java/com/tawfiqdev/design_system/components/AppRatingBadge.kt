@@ -1,5 +1,6 @@
 package com.tawfiqdev.design_system.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import com.tawfiqdev.design_system.theme.NormalRoundedCornerShape
 import com.tawfiqdev.design_system.utils.Baseline0
 import com.tawfiqdev.design_system.utils.Baseline2
 
+@SuppressLint("DefaultLocale")
 @Composable
 fun RatingBadge(rating: Double, modifier: Modifier = Modifier) {
     Row(
@@ -23,7 +25,7 @@ fun RatingBadge(rating: Double, modifier: Modifier = Modifier) {
                 shape = NormalRoundedCornerShape
             )
             .background(
-                color = MaterialTheme.colorScheme.onBackground,
+                color = MaterialTheme.colorScheme.onPrimary,
                 shape = NormalRoundedCornerShape
             )
             .padding(
@@ -38,7 +40,7 @@ fun RatingBadge(rating: Double, modifier: Modifier = Modifier) {
         )
         AppText(
             text = String.format("%.1f", rating),
-            color = AppColor.Black
+            color = MaterialTheme.colorScheme.onSecondary
         )
     }
 }

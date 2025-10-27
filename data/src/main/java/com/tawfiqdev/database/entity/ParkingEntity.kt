@@ -19,5 +19,7 @@ data class ParkingEntity(
     @ColumnInfo(name = "distanceMins")  val distanceMins: Int,
     @ColumnInfo(name = "spots")  val spots: Int,
     @ColumnInfo(name = "imageRes") val imageRes: Int? = null,
-    @ColumnInfo(name = "imageUrl")  val imageUrl: String? = null
+    @ColumnInfo(name = "imageUrl")  val imageUrl: String? = null,
+    @ColumnInfo(name = "address")  val address: String,
+    @ColumnInfo(name = "reviewCount")  val reviewCount: Int? = null
 )

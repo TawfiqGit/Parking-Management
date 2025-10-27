@@ -1,8 +1,18 @@
 package com.tawfiqdev.parkingmanagement.presentation.home.detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -12,23 +22,39 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.R
 
+@SuppressLint("DefaultLocale")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ParkingDetailScreen(
+    parking: Parking,
     onBackClick: () -> Unit = {},
-    onBookClick: () -> Unit = {}
 ) {
     var isFavorite by remember { mutableStateOf(false) }
     var selectedTab by remember { mutableStateOf("Gallery") }
@@ -42,57 +68,28 @@ fun ParkingDetailScreen(
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
-        bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.onPrimary,
-                tonalElevation = 3.dp
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column {
-                        Text("Total Price", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurface)
-                        Text(
-                            "$5.00 /hr",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                    Button(
-                        onClick = onBookClick,
-                        shape = RoundedCornerShape(24.dp),
-                        modifier = Modifier.height(50.dp)
-                    ) {
-                        Text("Book Slot", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
-                    }
-                }
-            }
-        }
     ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            // --- Header image ---
-            Box(modifier = Modifier.height(280.dp)) {
+            Box(modifier = Modifier.height(300.dp)) {
+                val imageBack  = if (parking.imageRes != null){
+                    parking.imageRes!!
+                } else R.drawable.parking_empty
+
                 Image(
-                    painter = painterResource(R.drawable.parking1),
+                    painter = painterResource(imageBack),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
 
-                // Back / Share / Like buttons
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
+                        .padding(6.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     IconButton(
@@ -129,7 +126,6 @@ fun ParkingDetailScreen(
                     }
                 }
 
-                // Small gallery preview row
                 LazyRow(
                     modifier = Modifier
                         .align(Alignment.BottomStart)
@@ -155,7 +151,7 @@ fun ParkingDetailScreen(
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                 AssistChip(
                     onClick = {},
-                    label = { Text("Car Parking") },
+                    label = { Text(parking.category.name) },
                     colors = AssistChipDefaults.assistChipColors(
                         containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
                         labelColor = MaterialTheme.colorScheme.primary
@@ -165,27 +161,26 @@ fun ParkingDetailScreen(
                 Spacer(Modifier.height(8.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "⭐ 4.8 (365 reviews)",
+                        text = "⭐ ${parking.rating}",
                         fontSize = 14.sp,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
                 Text(
-                    "GreenPark Innovations",
+                    parking.name,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
-                    "1012 Ocean avenue, New York, USA",
+                    parking.address,
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.outline
                 )
             }
 
-            // --- Tabs section ---
             val tabs = listOf("About", "Gallery", "Review")
             TabRow(
                 selectedTabIndex = tabs.indexOf(selectedTab),
@@ -198,8 +193,7 @@ fun ParkingDetailScreen(
                         text = {
                             Text(
                                 tab,
-                                color = if (selectedTab == tab)
-                                    MaterialTheme.colorScheme.primary
+                                color = if (selectedTab == tab) MaterialTheme.colorScheme.primary
                                 else MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -208,9 +202,6 @@ fun ParkingDetailScreen(
             }
 
             when (selectedTab) {
-                "Gallery" -> {
-                    GallerySection()
-                }
                 else -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
@@ -220,50 +211,6 @@ fun ParkingDetailScreen(
                     }
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun GallerySection() {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Gallery (400)", fontWeight = FontWeight.Bold)
-            Text(
-                "add photo",
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.Medium
-            )
-        }
-
-        Spacer(Modifier.height(12.dp))
-
-        // Grid of gallery photos
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Image(
-                painter = painterResource(R.drawable.parking1),
-                contentDescription = null,
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
-            Image(
-                painter = painterResource(R.drawable.parking2),
-                contentDescription = null,
-                modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
         }
     }
 }
