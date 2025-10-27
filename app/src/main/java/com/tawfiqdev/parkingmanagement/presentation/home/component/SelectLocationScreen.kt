@@ -1,4 +1,4 @@
-package com.tawfiqdev.parkingmanagement.presentation.home
+package com.tawfiqdev.parkingmanagement.presentation.home.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke

@@ -59,6 +59,7 @@ import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.R
 import com.tawfiqdev.parkingmanagement.navigation.ParkingDetail
+import com.tawfiqdev.parkingmanagement.navigation.SelectLocation
 import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.HomeViewModel
 import com.tawfiqdev.parkingmanagement.presentation.utils.UiState
 import java.net.URLEncoder
@@ -77,7 +78,7 @@ fun HomeScreen(
             LocationHeader(
                 location = "India",
                 onNotificationsClick = {},
-                onSelectedLocationClick = { navController.navigate("selectLocation") },
+                onSelectedLocationClick = { navController.navigate(SelectLocation) },
             )
         }
     ) { paddingValues ->

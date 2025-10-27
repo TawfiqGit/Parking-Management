@@ -28,8 +28,8 @@ import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
-import com.tawfiqdev.parkingmanagement.presentation.home.SelectLocationScreen
-import com.tawfiqdev.parkingmanagement.presentation.home.detail.ParkingDetailScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.component.SelectLocationScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.component.ParkingDetailScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -117,7 +117,11 @@ fun NavHostScreen(
                 ParkingDetailScreen(
                     parking = parking,
                     onBackClick = { navController.popBackStack() },
+                    onBookClick = { navController.navigate(SelectVehicle) }
                 )
+            }
+            composable(SelectVehicle) {
+                Toast.makeText(navController.context, "SelectVehicle", Toast.LENGTH_SHORT).show()
             }
             composable(Home) { HomeScreen(navController = navController) }
             composable(Booking) { BookingScreen(navController = navController) }
