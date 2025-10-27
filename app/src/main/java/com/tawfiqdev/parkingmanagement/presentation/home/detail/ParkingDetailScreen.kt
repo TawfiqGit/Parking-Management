@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -46,8 +47,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tawfiqdev.design_system.theme.SmallLargeRoundedCornerShape
 import com.tawfiqdev.model.Parking
 import com.tawfiqdev.parkingmanagement.R
+import com.tawfiqdev.parkingmanagement.presentation.home.detail.component.ParkingHeader
 
 @SuppressLint("DefaultLocale")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,6 +58,7 @@ import com.tawfiqdev.parkingmanagement.R
 fun ParkingDetailScreen(
     parking: Parking,
     onBackClick: () -> Unit = {},
+    onBookClick: () -> Unit = {}
 ) {
     var isFavorite by remember { mutableStateOf(false) }
     var selectedTab by remember { mutableStateOf("Gallery") }
@@ -68,13 +72,29 @@ fun ParkingDetailScreen(
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp, end = 16.dp),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                Button(
+                    onClick = onBookClick,
+                    shape = SmallLargeRoundedCornerShape,
+                ) {
+                    Text("Book Slot", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                }
+            }
+
+        }
     ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            Box(modifier = Modifier.height(300.dp)) {
+            Box(modifier = Modifier.height(238.dp)) {
                 val imageBack  = if (parking.imageRes != null){
                     parking.imageRes!!
                 } else R.drawable.parking_empty
