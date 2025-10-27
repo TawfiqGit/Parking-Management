@@ -13,6 +13,7 @@ import com.tawfiqdev.design_system.theme.AppColor.Black
 import com.tawfiqdev.design_system.theme.AppColor.DarkSurface
 import com.tawfiqdev.design_system.theme.AppColor.GreenRacing
 import com.tawfiqdev.design_system.theme.AppColor.GreenRacing10
+import com.tawfiqdev.design_system.theme.AppColor.GreenRacing40
 import com.tawfiqdev.design_system.theme.AppColor.GreenTeal
 import com.tawfiqdev.design_system.theme.AppColor.NearBlack
 import com.tawfiqdev.design_system.theme.AppColor.White
@@ -26,6 +27,7 @@ private val LightColors = lightColorScheme(
     onSecondary = Black,
     onBackground = NearBlack,
     onSurface    = NearBlack,
+    onTertiary = GreenRacing40
 )
 
 private val DarkColors = darkColorScheme(

@@ -13,12 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
@@ -84,7 +85,6 @@ fun ParkingDetailScreen(
                     Text("Book Slot", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
                 }
             }
-
         }
     ) { padding ->
         Column(
@@ -116,7 +116,7 @@ fun ParkingDetailScreen(
                             .clip(CircleShape)
                             .background(MaterialTheme.colorScheme.onPrimary)
                     ) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
 
                     Row {
@@ -128,6 +128,8 @@ fun ParkingDetailScreen(
                         ) {
                             Icon(Icons.Outlined.Share, contentDescription = "Share")
                         }
+
+                        Spacer(Modifier.width(8.dp))
 
                         IconButton(
                             onClick = { isFavorite = !isFavorite },

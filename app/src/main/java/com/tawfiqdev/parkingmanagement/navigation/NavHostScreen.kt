@@ -30,6 +30,7 @@ import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.component.SelectLocationScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.component.ParkingDetailScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.component.SelectVehicleScreen
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
@@ -121,7 +122,10 @@ fun NavHostScreen(
                 )
             }
             composable(SelectVehicle) {
-                Toast.makeText(navController.context, "SelectVehicle", Toast.LENGTH_SHORT).show()
+                SelectVehicleScreen (
+                    onBackClick = { navController.popBackStack() },
+                    onContinueClick = { navController.navigate(Home) }
+                )
             }
             composable(Home) { HomeScreen(navController = navController) }
             composable(Booking) { BookingScreen(navController = navController) }
