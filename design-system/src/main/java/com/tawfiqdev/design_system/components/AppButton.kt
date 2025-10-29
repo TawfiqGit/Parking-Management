@@ -1,11 +1,15 @@
 package com.tawfiqdev.design_system.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -89,6 +93,31 @@ fun AppOutlinedButton(
             textAlignment = TextAlign.Center
         )
     }
+}
+
+@Composable
+fun ContinueButton(text: String, onClick: () -> Unit) {
+    Box(modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
+            shape = RoundedCornerShape(50),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onTertiary
+            )
+        ) {
+            Text(text = text, color = Color.White)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ContinueButtonPreview() {
+    ContinueButton(text = "Continue", onClick = {})
 }
 
 @Preview
