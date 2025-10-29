@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
 @HiltViewModel
-class SelectLocationViewModel @Inject constructor(
+class LocationViewModel @Inject constructor(
     private val repo: LocationRepository
 ) : ViewModel() {
 

@@ -59,12 +59,12 @@ import com.tawfiqdev.design_system.utils.Baseline3
 import com.tawfiqdev.design_system.utils.Baseline4
 import com.tawfiqdev.design_system.utils.Baseline5
 import com.tawfiqdev.model.LocationSelection
-import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.SelectLocationViewModel
+import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.LocationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectLocationScreen(
-    viewModel: SelectLocationViewModel = hiltViewModel(),
+    viewModel: LocationViewModel = hiltViewModel(),
     onBack: () -> Unit,
     onUseCurrentLocation: () -> Unit,
     onResultClick: (LocationSelection) -> Unit
