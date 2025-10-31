@@ -62,7 +62,7 @@ fun SelectVehicleScreen(
             ) {
                 ContinueButton (
                     text = "Continue",
-                    onClick = onContinueClick
+                    onClick = {}
                 )
             }
         }

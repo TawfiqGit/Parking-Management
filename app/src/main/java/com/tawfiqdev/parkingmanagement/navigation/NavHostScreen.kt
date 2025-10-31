@@ -25,17 +25,21 @@ import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.tawfiqdev.design_system.components.AnimatedSplashScreen
 import com.tawfiqdev.model.Parking
+import com.tawfiqdev.model.Vehicle
 import com.tawfiqdev.parkingmanagement.presentation.booking.BookingScreen
 import com.tawfiqdev.parkingmanagement.presentation.history.HistoryPage
 import com.tawfiqdev.parkingmanagement.presentation.home.HomeScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.component.AddVehicleScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.component.SelectLocationScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.component.ParkingDetailScreen
 import com.tawfiqdev.parkingmanagement.presentation.home.component.SelectVehicleScreen
+import com.tawfiqdev.parkingmanagement.presentation.home.viewmodel.BookParkingViewModel
 import com.tawfiqdev.parkingmanagement.presentation.setting.SettingScreen
 import com.tawfiqdev.parkingmanagement.presentation.splash.MainViewModel
 import kotlinx.coroutines.flow.StateFlow
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
+import kotlin.random.Random
 
 @Composable
 fun NavHostScreen(
@@ -44,7 +48,8 @@ fun NavHostScreen(
     val navController = rememberNavController()
     val currentDestination = navController.currentBackStackEntryAsState().value?.destination
     val currentRoute = currentDestination?.route
-    val viewModel = hiltViewModel() as MainViewModel
+    val mainViewModel = hiltViewModel() as MainViewModel
+    val bookParkingViewModel = hiltViewModel() as BookParkingViewModel
 
     val navItems = listOf(
         NavItem("Home", Icons.Default.Home, Home),
@@ -123,8 +128,28 @@ fun NavHostScreen(
             }
             composable(SelectVehicle) {
                 SelectVehicleScreen (
+                    vehicles = bookParkingViewModel.listVehicle,
                     onBackClick = { navController.popBackStack() },
-                    onContinueClick = { navController.navigate(Home) }
+                    onContinueClick = { navController.navigate(Home) },
+                    onAddClick = { navController.navigate(AddVehicle) },
+                )
+            }
+            composable(AddVehicle) {
+                AddVehicleScreen(
+                    onBackClick = { navController.popBackStack() },
+                    onAddVehicle = { brand, model, plate ->
+                        bookParkingViewModel.insertVehicle(vehicle =
+                            Vehicle(
+                                id = 0L,
+                                userId = Random.nextLong(500),
+                                brand = brand,
+                                model = model,
+                                registrationPlate = plate,
+                                color = null
+                            )
+                        )
+                        navController.popBackStack()
+                    }
                 )
             }
             composable(Home) { HomeScreen(navController = navController) }
